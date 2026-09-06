@@ -10,9 +10,7 @@ import re
 import threading
 from concurrent.futures import Future
 from typing import Any, List, Sequence, cast
-
 from utils import OfferItem, PersonaProfile, normalize
-
 
 class FamilyLLM:
     """LLM backend that updates one complete flat family position per call."""
@@ -21,19 +19,13 @@ class FamilyLLM:
         self,
         copilot_model: str,
         token_env_var: str,
-        seed: int,
         profiles: Sequence[PersonaProfile] = (),
-        cognitive_coeff: float = 1.42,
-        social_coeff: float = 1.42,
         max_new_tokens: int = 384,
         max_prompt_items: int = 24,
     ) -> None:
         self.copilot_model = copilot_model
         self.token_env_var = token_env_var
-        self.seed = seed
         self.profiles = tuple(profiles)
-        self.cognitive_coeff = cognitive_coeff
-        self.social_coeff = social_coeff
         self.max_new_tokens = max_new_tokens
         self.max_prompt_items = max_prompt_items
         self._conversation_initialized = False
@@ -170,24 +162,22 @@ class FamilyLLM:
                 *self._family_layout_lines(),
                 "Family preferences (consider as many as possible):",
                 *[
-                    f"- {profile.name} ({profile.role}): {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
+                    f"- {profile.name} : {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
                     for profile in self.profiles
                 ],
                 "Prefer affordable, healthy items while satisfying the family preferences.",
-                "Fitness definition: lower is better. fitness = total basket price - 1.2 * total health value.",
-                "Fitness combines the basket price with a health-value bonus; it is not a price-only value.",
-                "Use only indexes listed in each step's Available items section.",
+                "Use only indexes listed in 'Available items' section.",
             ])
 
         prompt_lines.extend([
             "For this optimization step, return a complete next family position as JSON.",
             f"Current position: {list(current_position)}",
-            f"Personal-best position (fitness {personal_best_fitness}): {list(personal_best_position)}",
-            f"Global-best position (fitness {global_best_fitness}): {list(global_best_position)}",
+            f"Personal-best position so far: (fitness {personal_best_fitness}): {list(personal_best_position)}",
+            f"Global-best position so far: (fitness {global_best_fitness}): {list(global_best_position)}",
         ])
 
         # Available items
-        prompt_lines.append("Available items (use only these indexes):")
+        prompt_lines.append("Available items:")
         prompt_lines.extend(
             f"- id={item_id} | price={candidates[item_id].amount:.2f} {candidates[item_id].currency} | category={candidates[item_id].category} | product={candidates[item_id].product}"
             for item_id in candidate_ids

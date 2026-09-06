@@ -9,7 +9,6 @@ import math
 import random
 from pathlib import Path
 from typing import Any, Dict, List, Sequence, Tuple
-
 from family_llm import FamilyLLM
 from utils import (
     IterationRecord,
@@ -20,74 +19,30 @@ from utils import (
     health_score,
     shortlist_from_position,
 )
-
-REPO_ROOT = Path(__file__).resolve().parent
-DEFAULT_DATA_FILE_PATH = REPO_ROOT / "data" / "kaufland_prices_by_category_various_countries.json"
-DEFAULT_OUTPUT = REPO_ROOT / "data" / "family_pso_plan.json"
-DEFAULT_COPILOT_MODEL = "GPT-5.6 Luna" # "auto"
-DEFAULT_COPILOT_TOKEN_ENV = "COPILOT_GITHUB_TOKEN"
-DEFAULT_NUM_ITERATIONS = 10
-DEFAULT_COUNTRY = "DE"
-MAX_CANDIDATES = 220 # Total amount of considered products
-DEFAULT_SHORT_LIST_SIZE = 70
-
-
-def make_profiles() -> List[PersonaProfile]:
-    # Define family personas and their shopping preference constraints.
-    return [
-        PersonaProfile(
-            name="father",
-            role="father",
-            keywords=["beer", "bier", "meat", "fleisch", "grill", "sausage", "wurst"],
-            basket_size=12,
-            min_preferred_items=4,
-        ),
-        PersonaProfile(
-            name="mother",
-            role="mother",
-            keywords=["gemuese", "gemuse", "obst", "salat", "bio", "tomaten", "gurke"],
-            basket_size=12,
-            min_preferred_items=4,
-        ),
-        PersonaProfile(
-            name="daughter",
-            role="daughter",
-            keywords=["chocolate", "schokolade", "candy", "bonbon", "keks", "ice", "dessert"],
-            basket_size=10,
-            min_preferred_items=3,
-        ),
-        PersonaProfile(
-            name="son",
-            role="son",
-            keywords=["chocolate", "schokolade", "snack", "chips", "candy", "cola"],
-            basket_size=10,
-            min_preferred_items=3,
-        ),
-        PersonaProfile(
-            name="mother_in_law",
-            role="mother in law",
-            keywords=["detergent", "clean", "reiniger", "spul", "putz", "haushalt", "wasch"],
-            basket_size=11,
-            min_preferred_items=3,
-        ),
-    ]
-
+from config import make_profiles
+from config import (
+    DEFAULT_DATA_FILE_PATH,
+    DEFAULT_OUTPUT,
+    DEFAULT_COPILOT_MODEL,
+    DEFAULT_COPILOT_TOKEN_ENV,
+    DEFAULT_NUM_ITERATIONS,
+    DEFAULT_COUNTRY,
+    MAX_CANDIDATES,
+    DEFAULT_SHORT_LIST_SIZE,
+    SEED,
+)
 
 def evaluate_selection(
     selection: Sequence[int],
     items: Sequence[OfferItem],
-    profile: PersonaProfile,
-) -> Tuple[float, float, float]:
-    """Evaluate a basket using only price and the health of its items.
-
-    The second return value is retained as a compatibility placeholder for the
-    existing iteration record; no artificial penalty is applied anymore.
+) -> Tuple[float, float]:
+    """The fitness function: Evaluate a basket using only price and the health of its items.
     """
     total_price = sum(items[i].amount for i in selection)
     health_value = sum(health_score(items[i]) for i in selection)
     health_weight = 1.2
     fitness = total_price - health_weight * health_value
-    return total_price, 0.0, fitness
+    return total_price, fitness
 
 
 def run_optimizer(
@@ -99,9 +54,6 @@ def run_optimizer(
     shortlist_size: int,
     copilot_model: str,
     copilot_token_env: str,
-    seed: int,
-    cognitive_coeff: float = 1.42,
-    social_coeff: float = 1.42,
     num_particles: int = 7,
 ) -> Tuple[List[IterationRecord], Dict[str, Particle], float]:
     """Run the multi-persona PSO loop over the candidate item space.
@@ -114,42 +66,31 @@ def run_optimizer(
         raise ValueError("No items loaded from dataset.")
     if not profiles:
         raise ValueError("At least one family profile is required.")
-    if not math.isfinite(cognitive_coeff) or cognitive_coeff < 0:
-        raise ValueError("cognitive_coeff must be a finite non-negative number.")
-    if not math.isfinite(social_coeff) or social_coeff < 0:
-        raise ValueError("social_coeff must be a finite non-negative number.")
     if num_particles < 1:
         raise ValueError("num_particles must be at least 1.")
 
     # Initialize.
-    rng = random.Random(seed)
+    rng = random.Random(SEED)
     llm = FamilyLLM(
         copilot_model=copilot_model,
         token_env_var=copilot_token_env,
-        seed=seed,
         profiles=profiles,
-        cognitive_coeff=cognitive_coeff,
-        social_coeff=social_coeff,
     )
-
-    dimension = len(items)
+    num_all_items = len(items)
     profile_map = {profile.name: profile for profile in profiles}
     total_basket_size = sum(profile.basket_size for profile in profiles)
     particles: Dict[str, Particle] = {}
     for particle_index in range(num_particles):
-        position = [rng.randrange(dimension) for _ in range(total_basket_size)]
-        velocity = [rng.uniform(-0.3, 0.3) for _ in range(total_basket_size)]
+        position = [rng.randrange(num_all_items) for _ in range(total_basket_size)]
         particles[f"particle_{particle_index}"] = Particle(
             profiles=profile_map,
             position=position,
-            velocity=velocity,
             best_position=position.copy(),
         )
-
     history: List[IterationRecord] = []
+    best_global_selection: List[int] = []
     best_global_fitness = float("inf")
     stagnation_counter = 0
-    best_global_selection: List[int] = []
 
     # Main loop: shortlist -> LLM PSO-inspired discrete update -> evaluate -> update bests.
     try:
@@ -171,14 +112,17 @@ def run_optimizer(
                     global_best_position=best_global_selection,
                     global_best_fitness=best_global_fitness,
                 )
-                selection = [item_id for item_id in proposal if 0 <= item_id < dimension]
+                selection = [item_id for item_id in proposal if 0 <= item_id < num_all_items]
                 if len(selection) != total_basket_size:
                     selection = particle.position.copy()
                 particle.position = selection[:total_basket_size]
 
-                family_total_price, _, family_fitness = evaluate_selection(
-                    particle.position, items, profiles[0]
+                # Apply fitness function
+                family_total_price, family_fitness = evaluate_selection(
+                    particle.position, items
                 )
+
+                # Update history
                 history.append(
                     IterationRecord(
                         iteration=iteration,
@@ -338,21 +282,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--shortlist-size", type=int, default=DEFAULT_SHORT_LIST_SIZE,
                         help="Per-persona shortlist size sent to proposer.")
     parser.add_argument(
-        "--cognitive-coeff",
-        type=float,
-        default=1.42,
-        help="LLM PSO cognitive coefficient (c1), weighting the persona personal best.",
-    )
-    parser.add_argument(
-        "--social-coeff",
-        type=float,
-        default=1.42,
-        help="LLM PSO social coefficient (c2), weighting the family swarm best.",
-    )
-    parser.add_argument(
         "--num-particles",
         type=int,
-        default=3, # Increase that number to around 10- the PSO is working well
+        default=3, # Increase that number to around 10- in order PSO like decisions to working properly.
         help="Number of complete-family particles in the swarm (5-7 recommended).",
     )
     parser.add_argument("--seed", type=int, default=42, help="Random seed.")
@@ -368,22 +300,16 @@ def main() -> None:
                          country_code=args.country.strip().upper(),
                          max_candidates=args.max_candidates)
 
-    # Create family profiles - particles in the swarm
-    profiles = make_profiles()
-
     # Run the LLM-assisted PSO like optimizer.
     history, particles, best_global_fitness = run_optimizer(
         items=offers,
-        profiles=profiles,
+        profiles=make_profiles(),
         iterations=args.iterations,
         stagnation_window=args.stagnation_window,
         min_delta=args.min_delta,
         shortlist_size=args.shortlist_size,
         copilot_model=args.copilot_model,
         copilot_token_env=args.copilot_token_env,
-        seed=args.seed,
-        cognitive_coeff=args.cognitive_coeff,
-        social_coeff=args.social_coeff,
         num_particles=args.num_particles,
     )
 
@@ -395,7 +321,6 @@ def main() -> None:
         best_global_fitness=best_global_fitness,
         iterations_requested=args.iterations,
     )
-
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 

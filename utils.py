@@ -32,7 +32,6 @@ class PersonaProfile:
 class Particle:
 	profiles: Dict[str, PersonaProfile]
 	position: List[int]
-	velocity: List[float]
 	best_position: List[int]
 	best_selection: List[int] = field(default_factory=list)
 	best_fitness: float = float("inf")
@@ -98,32 +97,20 @@ def load_offers(dataset_path: Path, country_code: str, max_candidates: int) -> L
 	return trimmed
 
 def keyword_score(item: OfferItem, keywords: Sequence[str]) -> float:
-    # Count how many profile keywords appear in product/category text.
-    text = normalize(f"{item.product} {item.category}")
-    score = 0.0
-    for kw in keywords:
-        if kw in text:
-            score += 1.0
-    return score
+	# Count how many profile keywords appear in product/category text.
+	text = normalize(f"{item.product} {item.category}")
+	score = 0.0
+	for kw in keywords:
+		if kw in text:
+			score += 1.0
+	return score
 
 
 def health_score(item: OfferItem) -> float:
-    # Lightweight health proxy from product/category keywords.
-    healthy_keywords = (
-        "bio",
-        "gemuese",
-        "gemuse",
-        "obst",
-        "salat",
-        "tomaten",
-        "gurke",
-        "vollkorn",
-        "hafer",
-        "natur",
-        "fresh",
-        "frisch",
-    )
-    return keyword_score(item, healthy_keywords)
+	# Lightweight health proxy from product/category keywords.
+  from config import HEALTHY_KEYWORDS
+
+  return keyword_score(item, HEALTHY_KEYWORDS)
 
 def sigmoid(value: float) -> float:
     # Numerically stable sigmoid used for position-to-probability mapping.

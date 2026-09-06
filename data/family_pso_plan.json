@@ -3,153 +3,153 @@
     "optimizer": "family-pso-llm",
     "iterations_requested": 10,
     "iterations_completed": 6,
-    "global_best_fitness": 33.38,
-    "global_best_particle": "particle_1"
+    "global_best_fitness": 38.16,
+    "global_best_particle": "particle_2"
   },
   "global_best_proposal": {
     "item_ids": [
-      40,
-      35,
-      160,
-      141,
-      16,
-      23,
-      28,
-      39,
-      12,
-      92,
-      98,
-      97,
-      56,
-      126,
-      174,
-      135,
-      16,
-      23,
-      92,
-      130,
-      119,
-      64,
-      108,
+      183,
+      142,
+      127,
+      83,
+      80,
+      210,
+      163,
+      145,
+      68,
       102,
-      12,
-      108,
-      102,
+      101,
+      196,
+      176,
+      175,
+      58,
+      54,
       56,
-      23,
-      28,
-      16,
-      39,
-      40,
-      35,
+      206,
+      167,
+      163,
+      145,
+      68,
       102,
-      108,
-      12,
+      8,
+      8,
+      196,
+      102,
+      101,
+      14,
+      163,
+      145,
       56,
-      23,
-      28,
+      175,
+      206,
+      196,
+      102,
+      101,
+      8,
+      14,
+      163,
+      145,
+      68,
+      80,
+      83,
+      198,
       16,
-      39,
-      40,
-      35,
-      16,
-      23,
-      92,
-      130,
-      119,
-      64,
-      152,
-      202,
-      28,
-      39,
-      40
+      210,
+      215,
+      142,
+      176,
+      175,
+      58,
+      54,
+      56,
+      14
     ],
     "baskets_by_member": {
       "father": {
         "basket_size": 12,
         "items": [
           {
-            "item_id": 40,
-            "product": "KROMBACHER",
-            "category": "Getränke, Spirituosen",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 35,
-            "product": "K-WERTSCHÄTZE",
+            "item_id": 183,
+            "product": "TULIP",
             "category": "Fleisch, Geflügel, Wurst",
-            "price": 0.79,
+            "price": 1.49,
             "currency": "EUR"
           },
           {
-            "item_id": 160,
+            "item_id": 142,
             "product": "K-WERTSCHÄTZE",
-            "category": "Fleisch, Geflügel, Wurst",
-            "price": 1.39,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 141,
-            "product": "REINERT",
             "category": "Fleisch, Geflügel, Wurst",
             "price": 1.29,
             "currency": "EUR"
           },
           {
-            "item_id": 16,
-            "product": "K-BIO",
-            "category": "Drogerie, Tiernahrung",
-            "price": 0.55,
+            "item_id": 127,
+            "product": "WIESENHOF",
+            "category": "Fleisch, Geflügel, Wurst",
+            "price": 1.19,
             "currency": "EUR"
           },
           {
-            "item_id": 23,
-            "product": "ROYAL ORANGE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 28,
-            "product": "MEIN T",
+            "item_id": 83,
+            "product": "KARLSBERG",
             "category": "Getränke, Spirituosen",
-            "price": 0.69,
+            "price": 0.99,
             "currency": "EUR"
           },
           {
-            "item_id": 39,
-            "product": "KNORR",
-            "category": "Grundnahrungsmittel",
-            "price": 0.79,
+            "item_id": 80,
+            "product": "HEINEKEN",
+            "category": "Getränke, Spirituosen",
+            "price": 0.99,
             "currency": "EUR"
           },
           {
-            "item_id": 12,
-            "product": "Erdbeer-Croissant",
-            "category": "Grundnahrungsmittel",
-            "price": 0.49,
+            "item_id": 210,
+            "product": "WZG",
+            "category": "Getränke, Spirituosen",
+            "price": 1.59,
             "currency": "EUR"
           },
           {
-            "item_id": 92,
-            "product": "WEIHENSTEPHAN",
+            "item_id": 163,
+            "product": "MILU",
             "category": "Molkereiprodukte, Fette",
-            "price": 1.0,
+            "price": 1.39,
             "currency": "EUR"
           },
           {
-            "item_id": 98,
-            "product": "MAGGI",
-            "category": "Grundnahrungsmittel",
-            "price": 1.0,
+            "item_id": 145,
+            "product": "YOPRO",
+            "category": "Molkereiprodukte, Fette",
+            "price": 1.29,
             "currency": "EUR"
           },
           {
-            "item_id": 97,
-            "product": "K-CLASSIC ASIA",
+            "item_id": 68,
+            "product": "Oliven-Mix",
             "category": "Feinkost, Konserven",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 102,
+            "product": "FUNNY-FRISCH",
+            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
             "price": 1.0,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 101,
+            "product": "CHIO",
+            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+            "price": 1.0,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 196,
+            "product": "LORENZ",
+            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+            "price": 1.49,
             "currency": "EUR"
           }
         ]
@@ -158,6 +158,34 @@
         "basket_size": 12,
         "items": [
           {
+            "item_id": 176,
+            "product": "Bioland dtsch. Zucchini",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 175,
+            "product": "Dtsch. Zwetschgen, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 58,
+            "product": "Dtsch. Zucchini, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 54,
+            "product": "Span./niederl. Rispentomaten, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
             "item_id": 56,
             "product": "Rumän./dtsch. Kulturheidelbeeren",
             "category": "Obst, Gemüse, Pflanzen",
@@ -165,73 +193,38 @@
             "currency": "EUR"
           },
           {
-            "item_id": 126,
-            "product": "Span./niederl. Paprika",
-            "category": "Unsere Preisknüller zum Wochenende",
-            "price": 1.11,
+            "item_id": 206,
+            "product": "K-TAKE IT VEGGIE",
+            "category": "Feinkost, Konserven",
+            "price": 1.59,
             "currency": "EUR"
           },
           {
-            "item_id": 174,
-            "product": "K-BIO ORGANIC",
-            "category": "Getränke, Spirituosen",
-            "price": 1.45,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 135,
-            "product": "K-BIO",
-            "category": "Grundnahrungsmittel",
-            "price": 1.19,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 16,
-            "product": "K-BIO",
-            "category": "Drogerie, Tiernahrung",
-            "price": 0.55,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 23,
-            "product": "ROYAL ORANGE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 92,
-            "product": "WEIHENSTEPHAN",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.0,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 130,
+            "item_id": 167,
             "product": "K-CLASSIC",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.19,
+            "category": "Feinkost, Konserven",
+            "price": 1.39,
             "currency": "EUR"
           },
           {
-            "item_id": 119,
-            "product": "LANDLIEBE",
+            "item_id": 163,
+            "product": "MILU",
             "category": "Molkereiprodukte, Fette",
-            "price": 1.11,
+            "price": 1.39,
             "currency": "EUR"
           },
           {
-            "item_id": 64,
-            "product": "SCHWARZWALDMILCH",
+            "item_id": 145,
+            "product": "YOPRO",
             "category": "Molkereiprodukte, Fette",
+            "price": 1.29,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 68,
+            "product": "Oliven-Mix",
+            "category": "Feinkost, Konserven",
             "price": 0.99,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 108,
-            "product": "LEIBNIZ",
-            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-            "price": 1.0,
             "currency": "EUR"
           },
           {
@@ -239,6 +232,13 @@
             "product": "FUNNY-FRISCH",
             "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
             "price": 1.0,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 8,
+            "product": "Nuss-Nougat-Croissant",
+            "category": "Grundnahrungsmittel",
+            "price": 0.49,
             "currency": "EUR"
           }
         ]
@@ -247,17 +247,17 @@
         "basket_size": 10,
         "items": [
           {
-            "item_id": 12,
-            "product": "Erdbeer-Croissant",
+            "item_id": 8,
+            "product": "Nuss-Nougat-Croissant",
             "category": "Grundnahrungsmittel",
             "price": 0.49,
             "currency": "EUR"
           },
           {
-            "item_id": 108,
-            "product": "LEIBNIZ",
+            "item_id": 196,
+            "product": "LORENZ",
             "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-            "price": 1.0,
+            "price": 1.49,
             "currency": "EUR"
           },
           {
@@ -268,6 +268,34 @@
             "currency": "EUR"
           },
           {
+            "item_id": 101,
+            "product": "CHIO",
+            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+            "price": 1.0,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 14,
+            "product": "Brioche »PAW Patrol«",
+            "category": "Grundnahrungsmittel",
+            "price": 0.55,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 163,
+            "product": "MILU",
+            "category": "Molkereiprodukte, Fette",
+            "price": 1.39,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 145,
+            "product": "YOPRO",
+            "category": "Molkereiprodukte, Fette",
+            "price": 1.29,
+            "currency": "EUR"
+          },
+          {
             "item_id": 56,
             "product": "Rumän./dtsch. Kulturheidelbeeren",
             "category": "Obst, Gemüse, Pflanzen",
@@ -275,45 +303,17 @@
             "currency": "EUR"
           },
           {
-            "item_id": 23,
-            "product": "ROYAL ORANGE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.69,
+            "item_id": 175,
+            "product": "Dtsch. Zwetschgen, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 1.49,
             "currency": "EUR"
           },
           {
-            "item_id": 28,
-            "product": "MEIN T",
-            "category": "Getränke, Spirituosen",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 16,
-            "product": "K-BIO",
-            "category": "Drogerie, Tiernahrung",
-            "price": 0.55,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 39,
-            "product": "KNORR",
-            "category": "Grundnahrungsmittel",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 40,
-            "product": "KROMBACHER",
-            "category": "Getränke, Spirituosen",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 35,
-            "product": "K-WERTSCHÄTZE",
-            "category": "Fleisch, Geflügel, Wurst",
-            "price": 0.79,
+            "item_id": 206,
+            "product": "K-TAKE IT VEGGIE",
+            "category": "Feinkost, Konserven",
+            "price": 1.59,
             "currency": "EUR"
           }
         ]
@@ -322,6 +322,13 @@
         "basket_size": 10,
         "items": [
           {
+            "item_id": 196,
+            "product": "LORENZ",
+            "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
             "item_id": 102,
             "product": "FUNNY-FRISCH",
             "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
@@ -329,17 +336,127 @@
             "currency": "EUR"
           },
           {
-            "item_id": 108,
-            "product": "LEIBNIZ",
+            "item_id": 101,
+            "product": "CHIO",
             "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
             "price": 1.0,
             "currency": "EUR"
           },
           {
-            "item_id": 12,
-            "product": "Erdbeer-Croissant",
+            "item_id": 8,
+            "product": "Nuss-Nougat-Croissant",
             "category": "Grundnahrungsmittel",
             "price": 0.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 14,
+            "product": "Brioche »PAW Patrol«",
+            "category": "Grundnahrungsmittel",
+            "price": 0.55,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 163,
+            "product": "MILU",
+            "category": "Molkereiprodukte, Fette",
+            "price": 1.39,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 145,
+            "product": "YOPRO",
+            "category": "Molkereiprodukte, Fette",
+            "price": 1.29,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 68,
+            "product": "Oliven-Mix",
+            "category": "Feinkost, Konserven",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 80,
+            "product": "HEINEKEN",
+            "category": "Getränke, Spirituosen",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 83,
+            "product": "KARLSBERG",
+            "category": "Getränke, Spirituosen",
+            "price": 0.99,
+            "currency": "EUR"
+          }
+        ]
+      },
+      "mother_in_law": {
+        "basket_size": 11,
+        "items": [
+          {
+            "item_id": 198,
+            "product": "VITAKRAFT",
+            "category": "Drogerie, Tiernahrung",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 16,
+            "product": "K-BIO",
+            "category": "Drogerie, Tiernahrung",
+            "price": 0.55,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 210,
+            "product": "WZG",
+            "category": "Getränke, Spirituosen",
+            "price": 1.59,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 215,
+            "product": "Geräucherte",
+            "category": "Fisch",
+            "price": 1.69,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 142,
+            "product": "K-WERTSCHÄTZE",
+            "category": "Fleisch, Geflügel, Wurst",
+            "price": 1.29,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 176,
+            "product": "Bioland dtsch. Zucchini",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 175,
+            "product": "Dtsch. Zwetschgen, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 1.49,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 58,
+            "product": "Dtsch. Zucchini, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 0.99,
+            "currency": "EUR"
+          },
+          {
+            "item_id": 54,
+            "product": "Span./niederl. Rispentomaten, lose",
+            "category": "Obst, Gemüse, Pflanzen",
+            "price": 0.99,
             "currency": "EUR"
           },
           {
@@ -350,127 +467,10 @@
             "currency": "EUR"
           },
           {
-            "item_id": 23,
-            "product": "ROYAL ORANGE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 28,
-            "product": "MEIN T",
-            "category": "Getränke, Spirituosen",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 16,
-            "product": "K-BIO",
-            "category": "Drogerie, Tiernahrung",
-            "price": 0.55,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 39,
-            "product": "KNORR",
+            "item_id": 14,
+            "product": "Brioche »PAW Patrol«",
             "category": "Grundnahrungsmittel",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 40,
-            "product": "KROMBACHER",
-            "category": "Getränke, Spirituosen",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 35,
-            "product": "K-WERTSCHÄTZE",
-            "category": "Fleisch, Geflügel, Wurst",
-            "price": 0.79,
-            "currency": "EUR"
-          }
-        ]
-      },
-      "mother_in_law": {
-        "basket_size": 11,
-        "items": [
-          {
-            "item_id": 16,
-            "product": "K-BIO",
-            "category": "Drogerie, Tiernahrung",
             "price": 0.55,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 23,
-            "product": "ROYAL ORANGE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 92,
-            "product": "WEIHENSTEPHAN",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.0,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 130,
-            "product": "K-CLASSIC",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.19,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 119,
-            "product": "LANDLIEBE",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.11,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 64,
-            "product": "SCHWARZWALDMILCH",
-            "category": "Molkereiprodukte, Fette",
-            "price": 0.99,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 152,
-            "product": "MILRAM",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.29,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 202,
-            "product": "QUARKI",
-            "category": "Molkereiprodukte, Fette",
-            "price": 1.59,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 28,
-            "product": "MEIN T",
-            "category": "Getränke, Spirituosen",
-            "price": 0.69,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 39,
-            "product": "KNORR",
-            "category": "Grundnahrungsmittel",
-            "price": 0.79,
-            "currency": "EUR"
-          },
-          {
-            "item_id": 40,
-            "product": "KROMBACHER",
-            "category": "Getränke, Spirituosen",
-            "price": 0.79,
             "currency": "EUR"
           }
         ]
@@ -479,63 +479,63 @@
   },
   "best_proposals_by_particle": {
     "particle_0": {
-      "combined_fitness": 34.88,
+      "combined_fitness": 45.61,
       "proposal": [
         62,
         35,
         143,
-        160,
+        183,
         28,
-        40,
-        50,
+        163,
+        188,
         26,
+        173,
         22,
-        23,
-        6,
-        8,
-        59,
+        151,
+        139,
         57,
         55,
+        59,
+        26,
         70,
         189,
-        26,
+        139,
+        173,
         22,
-        23,
-        6,
-        28,
+        151,
+        163,
+        188,
         8,
-        108,
-        8,
-        108,
-        6,
-        22,
-        23,
-        26,
-        28,
-        40,
+        129,
+        154,
         50,
-        35,
-        62,
-        8,
+        70,
+        189,
+        139,
+        173,
+        22,
+        151,
         108,
-        6,
-        22,
-        23,
-        26,
-        28,
-        40,
+        8,
+        129,
+        154,
         50,
-        35,
-        62,
-        143,
-        160,
-        141,
-        35,
+        70,
+        189,
+        139,
+        173,
+        22,
+        163,
+        188,
         26,
+        173,
+        139,
+        151,
         22,
         23,
         6,
-        28
+        28,
+        59
       ],
       "baskets_by_member": {
         "father": {
@@ -563,10 +563,10 @@
               "currency": "EUR"
             },
             {
-              "item_id": 160,
-              "product": "K-WERTSCHÄTZE",
+              "item_id": 183,
+              "product": "TULIP",
               "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.39,
+              "price": 1.49,
               "currency": "EUR"
             },
             {
@@ -577,17 +577,17 @@
               "currency": "EUR"
             },
             {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.39,
               "currency": "EUR"
             },
             {
-              "item_id": 50,
-              "product": "CRODO",
-              "category": "Getränke, Spirituosen",
-              "price": 0.89,
+              "item_id": 188,
+              "product": "ALMA",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.49,
               "currency": "EUR"
             },
             {
@@ -598,6 +598,13 @@
               "currency": "EUR"
             },
             {
+              "item_id": 173,
+              "product": "K-BIO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.44,
+              "currency": "EUR"
+            },
+            {
               "item_id": 22,
               "product": "MÜLLER",
               "category": "Molkereiprodukte, Fette",
@@ -605,24 +612,17 @@
               "currency": "EUR"
             },
             {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
+              "item_id": 151,
+              "product": "MILRAM",
               "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
+              "price": 1.29,
               "currency": "EUR"
             },
             {
-              "item_id": 6,
-              "product": "EHRMANN",
+              "item_id": 139,
+              "product": "K-TAKE IT VEGGIE",
               "category": "Molkereiprodukte, Fette",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 8,
-              "product": "Nuss-Nougat-Croissant",
-              "category": "Grundnahrungsmittel",
-              "price": 0.49,
+              "price": 1.25,
               "currency": "EUR"
             }
           ]
@@ -630,13 +630,6 @@
         "mother": {
           "basket_size": 12,
           "items": [
-            {
-              "item_id": 59,
-              "product": "Dtsch. Spitzkohl",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 0.99,
-              "currency": "EUR"
-            },
             {
               "item_id": 57,
               "product": "Ital./span. Wassermelone, lose",
@@ -649,6 +642,20 @@
               "product": "Ecuador./kolumb. Bananen, lose",
               "category": "Obst, Gemüse, Pflanzen",
               "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 59,
+              "product": "Dtsch. Spitzkohl",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 26,
+              "product": "K-BIO",
+              "category": "Grundnahrungsmittel",
+              "price": 0.69,
               "currency": "EUR"
             },
             {
@@ -666,10 +673,17 @@
               "currency": "EUR"
             },
             {
-              "item_id": 26,
+              "item_id": 139,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.25,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 173,
               "product": "K-BIO",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.44,
               "currency": "EUR"
             },
             {
@@ -680,38 +694,24 @@
               "currency": "EUR"
             },
             {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
+              "item_id": 151,
+              "product": "MILRAM",
               "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
+              "price": 1.29,
               "currency": "EUR"
             },
             {
-              "item_id": 6,
-              "product": "EHRMANN",
+              "item_id": 163,
+              "product": "MILU",
               "category": "Molkereiprodukte, Fette",
-              "price": 0.49,
+              "price": 1.39,
               "currency": "EUR"
             },
             {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 8,
-              "product": "Nuss-Nougat-Croissant",
-              "category": "Grundnahrungsmittel",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
+              "item_id": 188,
+              "product": "ALMA",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.49,
               "currency": "EUR"
             }
           ]
@@ -727,52 +727,17 @@
               "currency": "EUR"
             },
             {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
+              "item_id": 129,
+              "product": "Heringshappen",
+              "category": "Fisch",
+              "price": 1.19,
               "currency": "EUR"
             },
             {
-              "item_id": 6,
-              "product": "EHRMANN",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 22,
-              "product": "MÜLLER",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 26,
-              "product": "K-BIO",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
+              "item_id": 154,
+              "product": "K-CLASSIC",
+              "category": "Feinkost, Konserven",
+              "price": 1.29,
               "currency": "EUR"
             },
             {
@@ -783,10 +748,45 @@
               "currency": "EUR"
             },
             {
-              "item_id": 35,
-              "product": "K-WERTSCHÄTZE",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
+              "item_id": 70,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Feinkost, Konserven",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 189,
+              "product": "Gegrillte Champignons",
+              "category": "Feinkost, Konserven",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 139,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.25,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 173,
+              "product": "K-BIO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.44,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 22,
+              "product": "MÜLLER",
+              "category": "Molkereiprodukte, Fette",
+              "price": 0.69,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 151,
+              "product": "MILRAM",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
               "currency": "EUR"
             }
           ]
@@ -795,10 +795,10 @@
           "basket_size": 10,
           "items": [
             {
-              "item_id": 62,
-              "product": "WERZ",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.99,
+              "item_id": 108,
+              "product": "LEIBNIZ",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
               "currency": "EUR"
             },
             {
@@ -809,52 +809,17 @@
               "currency": "EUR"
             },
             {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
+              "item_id": 129,
+              "product": "Heringshappen",
+              "category": "Fisch",
+              "price": 1.19,
               "currency": "EUR"
             },
             {
-              "item_id": 6,
-              "product": "EHRMANN",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 22,
-              "product": "MÜLLER",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 26,
-              "product": "K-BIO",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
+              "item_id": 154,
+              "product": "K-CLASSIC",
+              "category": "Feinkost, Konserven",
+              "price": 1.29,
               "currency": "EUR"
             },
             {
@@ -863,6 +828,41 @@
               "category": "Getränke, Spirituosen",
               "price": 0.89,
               "currency": "EUR"
+            },
+            {
+              "item_id": 70,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Feinkost, Konserven",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 189,
+              "product": "Gegrillte Champignons",
+              "category": "Feinkost, Konserven",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 139,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.25,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 173,
+              "product": "K-BIO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.44,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 22,
+              "product": "MÜLLER",
+              "category": "Molkereiprodukte, Fette",
+              "price": 0.69,
+              "currency": "EUR"
             }
           ]
         },
@@ -870,45 +870,17 @@
           "basket_size": 11,
           "items": [
             {
-              "item_id": 35,
-              "product": "K-WERTSCHÄTZE",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 62,
-              "product": "WERZ",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 143,
-              "product": "HOUDEK",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.29,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 160,
-              "product": "K-WERTSCHÄTZE",
-              "category": "Fleisch, Geflügel, Wurst",
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
               "price": 1.39,
               "currency": "EUR"
             },
             {
-              "item_id": 141,
-              "product": "REINERT",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.29,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 35,
-              "product": "K-WERTSCHÄTZE",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
+              "item_id": 188,
+              "product": "ALMA",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.49,
               "currency": "EUR"
             },
             {
@@ -916,6 +888,27 @@
               "product": "K-BIO",
               "category": "Grundnahrungsmittel",
               "price": 0.69,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 173,
+              "product": "K-BIO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.44,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 139,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.25,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 151,
+              "product": "MILRAM",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
               "currency": "EUR"
             },
             {
@@ -944,6 +937,13 @@
               "product": "MEIN T",
               "category": "Getränke, Spirituosen",
               "price": 0.69,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 59,
+              "product": "Dtsch. Spitzkohl",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
               "currency": "EUR"
             }
           ]
@@ -951,80 +951,73 @@
       }
     },
     "particle_1": {
-      "combined_fitness": 33.38,
+      "combined_fitness": 55.87,
       "proposal": [
-        40,
-        35,
+        183,
         160,
         141,
-        16,
-        23,
-        28,
-        39,
-        12,
+        180,
+        186,
         92,
-        98,
-        97,
-        56,
-        126,
-        174,
-        135,
-        16,
-        23,
+        147,
+        67,
+        20,
+        31,
+        49,
+        158,
+        117,
+        58,
+        17,
+        206,
+        96,
+        11,
+        75,
+        74,
+        169,
+        137,
         92,
-        130,
-        119,
-        64,
-        108,
-        102,
-        12,
-        108,
-        102,
-        56,
-        23,
-        28,
-        16,
-        39,
-        40,
-        35,
-        102,
-        108,
-        12,
-        56,
-        23,
-        28,
-        16,
-        39,
-        40,
-        35,
-        16,
-        23,
+        186,
+        11,
+        75,
+        74,
+        169,
+        67,
         92,
-        130,
-        119,
-        64,
-        152,
-        202,
-        28,
-        39,
-        40
+        186,
+        147,
+        20,
+        31,
+        49,
+        158,
+        137,
+        186,
+        92,
+        147,
+        67,
+        11,
+        75,
+        74,
+        212,
+        212,
+        212,
+        206,
+        96,
+        11,
+        75,
+        74,
+        169,
+        137,
+        92
       ],
       "baskets_by_member": {
         "father": {
           "basket_size": 12,
           "items": [
             {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 35,
-              "product": "K-WERTSCHÄTZE",
+              "item_id": 183,
+              "product": "TULIP",
               "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
+              "price": 1.49,
               "currency": "EUR"
             },
             {
@@ -1042,482 +1035,10 @@
               "currency": "EUR"
             },
             {
-              "item_id": 16,
-              "product": "K-BIO",
-              "category": "Drogerie, Tiernahrung",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 39,
-              "product": "KNORR",
-              "category": "Grundnahrungsmittel",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 12,
-              "product": "Erdbeer-Croissant",
-              "category": "Grundnahrungsmittel",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 92,
-              "product": "WEIHENSTEPHAN",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 98,
-              "product": "MAGGI",
-              "category": "Grundnahrungsmittel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 97,
-              "product": "K-CLASSIC ASIA",
-              "category": "Feinkost, Konserven",
-              "price": 1.0,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "mother": {
-          "basket_size": 12,
-          "items": [
-            {
-              "item_id": 56,
-              "product": "Rumän./dtsch. Kulturheidelbeeren",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 126,
-              "product": "Span./niederl. Paprika",
-              "category": "Unsere Preisknüller zum Wochenende",
-              "price": 1.11,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 174,
-              "product": "K-BIO ORGANIC",
-              "category": "Getränke, Spirituosen",
-              "price": 1.45,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 135,
-              "product": "K-BIO",
-              "category": "Grundnahrungsmittel",
-              "price": 1.19,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 16,
-              "product": "K-BIO",
-              "category": "Drogerie, Tiernahrung",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 92,
-              "product": "WEIHENSTEPHAN",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 130,
-              "product": "K-CLASSIC",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.19,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 119,
-              "product": "LANDLIEBE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.11,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 64,
-              "product": "SCHWARZWALDMILCH",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 102,
-              "product": "FUNNY-FRISCH",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "daughter": {
-          "basket_size": 10,
-          "items": [
-            {
-              "item_id": 12,
-              "product": "Erdbeer-Croissant",
-              "category": "Grundnahrungsmittel",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 102,
-              "product": "FUNNY-FRISCH",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 56,
-              "product": "Rumän./dtsch. Kulturheidelbeeren",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 16,
-              "product": "K-BIO",
-              "category": "Drogerie, Tiernahrung",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 39,
-              "product": "KNORR",
-              "category": "Grundnahrungsmittel",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 35,
+              "item_id": 180,
               "product": "K-WERTSCHÄTZE",
               "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "son": {
-          "basket_size": 10,
-          "items": [
-            {
-              "item_id": 102,
-              "product": "FUNNY-FRISCH",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 12,
-              "product": "Erdbeer-Croissant",
-              "category": "Grundnahrungsmittel",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 56,
-              "product": "Rumän./dtsch. Kulturheidelbeeren",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 16,
-              "product": "K-BIO",
-              "category": "Drogerie, Tiernahrung",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 39,
-              "product": "KNORR",
-              "category": "Grundnahrungsmittel",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 35,
-              "product": "K-WERTSCHÄTZE",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 0.79,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "mother_in_law": {
-          "basket_size": 11,
-          "items": [
-            {
-              "item_id": 16,
-              "product": "K-BIO",
-              "category": "Drogerie, Tiernahrung",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 23,
-              "product": "ROYAL ORANGE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 92,
-              "product": "WEIHENSTEPHAN",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 130,
-              "product": "K-CLASSIC",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.19,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 119,
-              "product": "LANDLIEBE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.11,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 64,
-              "product": "SCHWARZWALDMILCH",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 152,
-              "product": "MILRAM",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.29,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 202,
-              "product": "QUARKI",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.59,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 28,
-              "product": "MEIN T",
-              "category": "Getränke, Spirituosen",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 39,
-              "product": "KNORR",
-              "category": "Grundnahrungsmittel",
-              "price": 0.79,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 40,
-              "product": "KROMBACHER",
-              "category": "Getränke, Spirituosen",
-              "price": 0.79,
-              "currency": "EUR"
-            }
-          ]
-        }
-      }
-    },
-    "particle_2": {
-      "combined_fitness": 45.12,
-      "proposal": [
-        90,
-        121,
-        90,
-        168,
-        119,
-        186,
-        204,
-        25,
-        27,
-        63,
-        110,
-        105,
-        48,
-        86,
-        48,
-        86,
-        105,
-        108,
-        108,
-        104,
-        200,
-        13,
-        15,
-        103,
-        105,
-        108,
-        200,
-        104,
-        24,
-        24,
-        63,
-        63,
-        48,
-        86,
-        104,
-        200,
-        105,
-        108,
-        24,
-        27,
-        48,
-        86,
-        90,
-        110,
-        172,
-        172,
-        121,
-        206,
-        25,
-        48,
-        86,
-        90,
-        119,
-        186,
-        204
-      ],
-      "baskets_by_member": {
-        "father": {
-          "basket_size": 12,
-          "items": [
-            {
-              "item_id": 90,
-              "product": "FERDI FUCHS",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 121,
-              "product": "RÜGENWALDER MÜHLE",
-              "category": "Feinkost, Konserven",
-              "price": 1.11,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 90,
-              "product": "FERDI FUCHS",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 168,
-              "product": "K-CLASSIC",
-              "category": "Grundnahrungsmittel",
-              "price": 1.39,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 119,
-              "product": "LANDLIEBE",
-              "category": "Molkereiprodukte, Fette",
-              "price": 1.11,
+              "price": 1.49,
               "currency": "EUR"
             },
             {
@@ -1528,45 +1049,52 @@
               "currency": "EUR"
             },
             {
-              "item_id": 204,
-              "product": "RUPP",
+              "item_id": 92,
+              "product": "WEIHENSTEPHAN",
               "category": "Molkereiprodukte, Fette",
-              "price": 1.59,
+              "price": 1.0,
               "currency": "EUR"
             },
             {
-              "item_id": 25,
-              "product": "Pizza Margherita",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
+              "item_id": 147,
+              "product": "ESKO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
               "currency": "EUR"
             },
             {
-              "item_id": 27,
-              "product": "GUTHAUS",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 63,
-              "product": "GRÜNLÄNDER",
+              "item_id": 67,
+              "product": "MIREE oder EXQUISA",
               "category": "Molkereiprodukte, Fette",
               "price": 0.99,
               "currency": "EUR"
             },
             {
-              "item_id": 110,
-              "product": "ALMDUDLER",
+              "item_id": 20,
+              "product": "PEPSI oder SCHWIP SCHWAP",
               "category": "Getränke, Spirituosen",
-              "price": 1.0,
+              "price": 0.66,
               "currency": "EUR"
             },
             {
-              "item_id": 105,
-              "product": "RITTER SPORT",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
+              "item_id": 31,
+              "product": "RAUCH",
+              "category": "Getränke, Spirituosen",
+              "price": 0.69,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 49,
+              "product": "DEIT",
+              "category": "Getränke, Spirituosen",
+              "price": 0.89,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 158,
+              "product": "K-BIO",
+              "category": "Getränke, Spirituosen",
+              "price": 1.29,
               "currency": "EUR"
             }
           ]
@@ -1575,263 +1103,24 @@
           "basket_size": 12,
           "items": [
             {
-              "item_id": 48,
-              "product": "Getrocknete Tomaten",
-              "category": "Feinkost, Konserven",
-              "price": 0.89,
+              "item_id": 117,
+              "product": "Südafrik./peruan. Avocado, lose",
+              "category": "Alles ab 1 €",
+              "price": 1.0,
               "currency": "EUR"
             },
             {
-              "item_id": 86,
-              "product": "Poln. Kulturchampignons, weiß",
+              "item_id": 58,
+              "product": "Dtsch. Zucchini, lose",
               "category": "Obst, Gemüse, Pflanzen",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 48,
-              "product": "Getrocknete Tomaten",
-              "category": "Feinkost, Konserven",
-              "price": 0.89,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 86,
-              "product": "Poln. Kulturchampignons, weiß",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 105,
-              "product": "RITTER SPORT",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 104,
-              "product": "LORENZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 200,
-              "product": "PRINGLES",
-              "category": "Unsere Preisknüller zum Wochenende",
-              "price": 1.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 13,
-              "product": "Türk. Kirschen, lose",
-              "category": "Unsere Preisknüller zum Wochenende",
-              "price": 0.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 15,
-              "product": "K-CLASSIC",
-              "category": "Grundnahrungsmittel",
-              "price": 0.55,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 103,
-              "product": "TUC",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "daughter": {
-          "basket_size": 10,
-          "items": [
-            {
-              "item_id": 105,
-              "product": "RITTER SPORT",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 200,
-              "product": "PRINGLES",
-              "category": "Unsere Preisknüller zum Wochenende",
-              "price": 1.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 104,
-              "product": "LORENZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 24,
-              "product": "Speck-Käse-Twister",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 24,
-              "product": "Speck-Käse-Twister",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 63,
-              "product": "GRÜNLÄNDER",
-              "category": "Molkereiprodukte, Fette",
               "price": 0.99,
               "currency": "EUR"
             },
             {
-              "item_id": 63,
-              "product": "GRÜNLÄNDER",
-              "category": "Molkereiprodukte, Fette",
-              "price": 0.99,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 48,
-              "product": "Getrocknete Tomaten",
-              "category": "Feinkost, Konserven",
-              "price": 0.89,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 86,
-              "product": "Poln. Kulturchampignons, weiß",
+              "item_id": 17,
+              "product": "Neuseeländ. Kiwi, lose",
               "category": "Obst, Gemüse, Pflanzen",
-              "price": 1.0,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "son": {
-          "basket_size": 10,
-          "items": [
-            {
-              "item_id": 104,
-              "product": "LORENZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 200,
-              "product": "PRINGLES",
-              "category": "Unsere Preisknüller zum Wochenende",
-              "price": 1.49,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 105,
-              "product": "RITTER SPORT",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 108,
-              "product": "LEIBNIZ",
-              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 24,
-              "product": "Speck-Käse-Twister",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 27,
-              "product": "GUTHAUS",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 48,
-              "product": "Getrocknete Tomaten",
-              "category": "Feinkost, Konserven",
-              "price": 0.89,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 86,
-              "product": "Poln. Kulturchampignons, weiß",
-              "category": "Obst, Gemüse, Pflanzen",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 90,
-              "product": "FERDI FUCHS",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.0,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 110,
-              "product": "ALMDUDLER",
-              "category": "Getränke, Spirituosen",
-              "price": 1.0,
-              "currency": "EUR"
-            }
-          ]
-        },
-        "mother_in_law": {
-          "basket_size": 11,
-          "items": [
-            {
-              "item_id": 172,
-              "product": "PRIL",
-              "category": "Drogerie, Tiernahrung",
-              "price": 1.39,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 172,
-              "product": "PRIL",
-              "category": "Drogerie, Tiernahrung",
-              "price": 1.39,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 121,
-              "product": "RÜGENWALDER MÜHLE",
-              "category": "Feinkost, Konserven",
-              "price": 1.11,
+              "price": 0.59,
               "currency": "EUR"
             },
             {
@@ -1842,38 +1131,106 @@
               "currency": "EUR"
             },
             {
-              "item_id": 25,
-              "product": "Pizza Margherita",
-              "category": "Grundnahrungsmittel",
-              "price": 0.69,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 48,
-              "product": "Getrocknete Tomaten",
+              "item_id": 96,
+              "product": "K-CLASSIC ASIA",
               "category": "Feinkost, Konserven",
-              "price": 0.89,
-              "currency": "EUR"
-            },
-            {
-              "item_id": 86,
-              "product": "Poln. Kulturchampignons, weiß",
-              "category": "Obst, Gemüse, Pflanzen",
               "price": 1.0,
               "currency": "EUR"
             },
             {
-              "item_id": 90,
-              "product": "FERDI FUCHS",
-              "category": "Fleisch, Geflügel, Wurst",
-              "price": 1.0,
+              "item_id": 11,
+              "product": "MAGGI",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
               "currency": "EUR"
             },
             {
-              "item_id": 119,
-              "product": "LANDLIEBE",
+              "item_id": 75,
+              "product": "KÜCHENMEISTER",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 74,
+              "product": "BIRKEL",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 169,
+              "product": "K-CLASSIC",
+              "category": "Grundnahrungsmittel",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 137,
+              "product": "VOLVIC",
+              "category": "Getränke, Spirituosen",
+              "price": 1.19,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 92,
+              "product": "WEIHENSTEPHAN",
               "category": "Molkereiprodukte, Fette",
-              "price": 1.11,
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 186,
+              "product": "KERRYGOLD",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.49,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "daughter": {
+          "basket_size": 10,
+          "items": [
+            {
+              "item_id": 11,
+              "product": "MAGGI",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 75,
+              "product": "KÜCHENMEISTER",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 74,
+              "product": "BIRKEL",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 169,
+              "product": "K-CLASSIC",
+              "category": "Grundnahrungsmittel",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 67,
+              "product": "MIREE oder EXQUISA",
+              "category": "Molkereiprodukte, Fette",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 92,
+              "product": "WEIHENSTEPHAN",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.0,
               "currency": "EUR"
             },
             {
@@ -1884,10 +1241,653 @@
               "currency": "EUR"
             },
             {
-              "item_id": 204,
-              "product": "RUPP",
+              "item_id": 147,
+              "product": "ESKO",
               "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 20,
+              "product": "PEPSI oder SCHWIP SCHWAP",
+              "category": "Getränke, Spirituosen",
+              "price": 0.66,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 31,
+              "product": "RAUCH",
+              "category": "Getränke, Spirituosen",
+              "price": 0.69,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "son": {
+          "basket_size": 10,
+          "items": [
+            {
+              "item_id": 49,
+              "product": "DEIT",
+              "category": "Getränke, Spirituosen",
+              "price": 0.89,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 158,
+              "product": "K-BIO",
+              "category": "Getränke, Spirituosen",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 137,
+              "product": "VOLVIC",
+              "category": "Getränke, Spirituosen",
+              "price": 1.19,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 186,
+              "product": "KERRYGOLD",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 92,
+              "product": "WEIHENSTEPHAN",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 147,
+              "product": "ESKO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 67,
+              "product": "MIREE oder EXQUISA",
+              "category": "Molkereiprodukte, Fette",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 11,
+              "product": "MAGGI",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 75,
+              "product": "KÜCHENMEISTER",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 74,
+              "product": "BIRKEL",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "mother_in_law": {
+          "basket_size": 11,
+          "items": [
+            {
+              "item_id": 212,
+              "product": "FROSCH",
+              "category": "Drogerie, Tiernahrung",
               "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 212,
+              "product": "FROSCH",
+              "category": "Drogerie, Tiernahrung",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 212,
+              "product": "FROSCH",
+              "category": "Drogerie, Tiernahrung",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 206,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Feinkost, Konserven",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 96,
+              "product": "K-CLASSIC ASIA",
+              "category": "Feinkost, Konserven",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 11,
+              "product": "MAGGI",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 75,
+              "product": "KÜCHENMEISTER",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 74,
+              "product": "BIRKEL",
+              "category": "Grundnahrungsmittel",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 169,
+              "product": "K-CLASSIC",
+              "category": "Grundnahrungsmittel",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 137,
+              "product": "VOLVIC",
+              "category": "Getränke, Spirituosen",
+              "price": 1.19,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 92,
+              "product": "WEIHENSTEPHAN",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.0,
+              "currency": "EUR"
+            }
+          ]
+        }
+      }
+    },
+    "particle_2": {
+      "combined_fitness": 38.16,
+      "proposal": [
+        183,
+        142,
+        127,
+        83,
+        80,
+        210,
+        163,
+        145,
+        68,
+        102,
+        101,
+        196,
+        176,
+        175,
+        58,
+        54,
+        56,
+        206,
+        167,
+        163,
+        145,
+        68,
+        102,
+        8,
+        8,
+        196,
+        102,
+        101,
+        14,
+        163,
+        145,
+        56,
+        175,
+        206,
+        196,
+        102,
+        101,
+        8,
+        14,
+        163,
+        145,
+        68,
+        80,
+        83,
+        198,
+        16,
+        210,
+        215,
+        142,
+        176,
+        175,
+        58,
+        54,
+        56,
+        14
+      ],
+      "baskets_by_member": {
+        "father": {
+          "basket_size": 12,
+          "items": [
+            {
+              "item_id": 183,
+              "product": "TULIP",
+              "category": "Fleisch, Geflügel, Wurst",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 142,
+              "product": "K-WERTSCHÄTZE",
+              "category": "Fleisch, Geflügel, Wurst",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 127,
+              "product": "WIESENHOF",
+              "category": "Fleisch, Geflügel, Wurst",
+              "price": 1.19,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 83,
+              "product": "KARLSBERG",
+              "category": "Getränke, Spirituosen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 80,
+              "product": "HEINEKEN",
+              "category": "Getränke, Spirituosen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 210,
+              "product": "WZG",
+              "category": "Getränke, Spirituosen",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 145,
+              "product": "YOPRO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 68,
+              "product": "Oliven-Mix",
+              "category": "Feinkost, Konserven",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 102,
+              "product": "FUNNY-FRISCH",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 101,
+              "product": "CHIO",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 196,
+              "product": "LORENZ",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.49,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "mother": {
+          "basket_size": 12,
+          "items": [
+            {
+              "item_id": 176,
+              "product": "Bioland dtsch. Zucchini",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 175,
+              "product": "Dtsch. Zwetschgen, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 58,
+              "product": "Dtsch. Zucchini, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 54,
+              "product": "Span./niederl. Rispentomaten, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 56,
+              "product": "Rumän./dtsch. Kulturheidelbeeren",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 206,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Feinkost, Konserven",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 167,
+              "product": "K-CLASSIC",
+              "category": "Feinkost, Konserven",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 145,
+              "product": "YOPRO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 68,
+              "product": "Oliven-Mix",
+              "category": "Feinkost, Konserven",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 102,
+              "product": "FUNNY-FRISCH",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 8,
+              "product": "Nuss-Nougat-Croissant",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "daughter": {
+          "basket_size": 10,
+          "items": [
+            {
+              "item_id": 8,
+              "product": "Nuss-Nougat-Croissant",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 196,
+              "product": "LORENZ",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 102,
+              "product": "FUNNY-FRISCH",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 101,
+              "product": "CHIO",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 14,
+              "product": "Brioche »PAW Patrol«",
+              "category": "Grundnahrungsmittel",
+              "price": 0.55,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 145,
+              "product": "YOPRO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 56,
+              "product": "Rumän./dtsch. Kulturheidelbeeren",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 175,
+              "product": "Dtsch. Zwetschgen, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 206,
+              "product": "K-TAKE IT VEGGIE",
+              "category": "Feinkost, Konserven",
+              "price": 1.59,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "son": {
+          "basket_size": 10,
+          "items": [
+            {
+              "item_id": 196,
+              "product": "LORENZ",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 102,
+              "product": "FUNNY-FRISCH",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 101,
+              "product": "CHIO",
+              "category": "Kaffee, Tee, Süßwaren, Knabberartikel",
+              "price": 1.0,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 8,
+              "product": "Nuss-Nougat-Croissant",
+              "category": "Grundnahrungsmittel",
+              "price": 0.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 14,
+              "product": "Brioche »PAW Patrol«",
+              "category": "Grundnahrungsmittel",
+              "price": 0.55,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 163,
+              "product": "MILU",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.39,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 145,
+              "product": "YOPRO",
+              "category": "Molkereiprodukte, Fette",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 68,
+              "product": "Oliven-Mix",
+              "category": "Feinkost, Konserven",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 80,
+              "product": "HEINEKEN",
+              "category": "Getränke, Spirituosen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 83,
+              "product": "KARLSBERG",
+              "category": "Getränke, Spirituosen",
+              "price": 0.99,
+              "currency": "EUR"
+            }
+          ]
+        },
+        "mother_in_law": {
+          "basket_size": 11,
+          "items": [
+            {
+              "item_id": 198,
+              "product": "VITAKRAFT",
+              "category": "Drogerie, Tiernahrung",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 16,
+              "product": "K-BIO",
+              "category": "Drogerie, Tiernahrung",
+              "price": 0.55,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 210,
+              "product": "WZG",
+              "category": "Getränke, Spirituosen",
+              "price": 1.59,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 215,
+              "product": "Geräucherte",
+              "category": "Fisch",
+              "price": 1.69,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 142,
+              "product": "K-WERTSCHÄTZE",
+              "category": "Fleisch, Geflügel, Wurst",
+              "price": 1.29,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 176,
+              "product": "Bioland dtsch. Zucchini",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 175,
+              "product": "Dtsch. Zwetschgen, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 1.49,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 58,
+              "product": "Dtsch. Zucchini, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 54,
+              "product": "Span./niederl. Rispentomaten, lose",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 56,
+              "product": "Rumän./dtsch. Kulturheidelbeeren",
+              "category": "Obst, Gemüse, Pflanzen",
+              "price": 0.99,
+              "currency": "EUR"
+            },
+            {
+              "item_id": 14,
+              "product": "Brioche »PAW Patrol«",
+              "category": "Grundnahrungsmittel",
+              "price": 0.55,
               "currency": "EUR"
             }
           ]

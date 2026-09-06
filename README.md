@@ -145,7 +145,6 @@ py -u D:\Research\pso_llm_optimizer\family_pso_optimizer.py --iterations 30 --co
 
 - `--dry-run` skips API calls and uses only heuristic proposals.
 - API mode requires a token in `COPILOT_GITHUB_TOKEN` (or custom name via `--copilot-token-env`).
-- Use `--cognitive-coeff` and `--social-coeff` to tune the LLM's personal-best and swarm-best influence (both default to `1.42`).
 - `FamilyLLM` uses one shared Copilot session across all particles and personas; the session remembers the initial family context throughout the run.
 - Convergence behavior is mainly controlled by `--stagnation-window` and `--min-delta`.
 
