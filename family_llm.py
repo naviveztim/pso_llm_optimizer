@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copilot-backed family proposal generation."""
+"""Copilot-backed complete-position proposal generation."""
 
 from __future__ import annotations
 
@@ -8,12 +8,15 @@ import json
 import os
 import re
 import threading
+import time
 from concurrent.futures import Future
 from typing import Any, List, Sequence, cast
-from utils import OfferItem, PersonaProfile, normalize
+
+from utils import OfferItem, PersonaProfile, health_penalty
+
 
 class FamilyLLM:
-    """LLM backend that updates one complete flat family position per call."""
+    """LLM backend that generates one complete family position per call."""
 
     def __init__(
         self,
@@ -21,35 +24,19 @@ class FamilyLLM:
         token_env_var: str,
         profiles: Sequence[PersonaProfile] = (),
         max_new_tokens: int = 384,
-        max_prompt_items: int = 24,
+        temperature: float = 0.85,
     ) -> None:
         self.copilot_model = copilot_model
         self.token_env_var = token_env_var
         self.profiles = tuple(profiles)
         self.max_new_tokens = max_new_tokens
-        self.max_prompt_items = max_prompt_items
+        self.temperature = temperature
         self._conversation_initialized = False
         self._loop: asyncio.AbstractEventLoop | None = None
         self._loop_thread: threading.Thread | None = None
         self._loop_ready = threading.Event()
         self._client: Any = None
         self._session: Any = None
-
-    def _prepare_shortlist_ids(self, candidates: Sequence[OfferItem], shortlist_ids: Sequence[int]) -> List[int]:
-        unique_ids: List[int] = []
-        seen_keys = set()
-        for item_id in shortlist_ids:
-            if not 0 <= item_id < len(candidates):
-                continue
-            item = candidates[item_id]
-            key = (normalize(item.product), normalize(item.category), round(item.amount, 2))
-            if key in seen_keys:
-                continue
-            seen_keys.add(key)
-            unique_ids.append(item_id)
-            if len(unique_ids) >= self.max_prompt_items:
-                break
-        return unique_ids
 
     def close(self) -> None:
         """Close the shared Copilot session and its background event loop."""
@@ -106,9 +93,17 @@ class FamilyLLM:
             "use_logged_in_user": False,
         })
         await cast(Any, self._client).start()
-        self._session = await cast(Any, self._client).create_session(
-            cast(Any, {"model": self.copilot_model})
-        )
+        session_config = {"model": self.copilot_model, "temperature": self.temperature}
+        try:
+            self._session = await cast(Any, self._client).create_session(
+                cast(Any, session_config)
+            )
+        except (TypeError, ValueError) as exc:
+            if "temper" not in str(exc).lower():
+                raise
+            self._session = await cast(Any, self._client).create_session(
+                cast(Any, {"model": self.copilot_model})
+            )
         return self._session
 
     async def _async_send_prompt(self, prompt: str) -> str:
@@ -131,70 +126,104 @@ class FamilyLLM:
     def propose(
         self,
         candidates: Sequence[OfferItem],
-        shortlist_ids: Sequence[int],
         current_position: Sequence[int],
         personal_best_position: Sequence[int],
         personal_best_fitness: float,
         global_best_position: Sequence[int],
         global_best_fitness: float,
+        current_fitness: float = float("nan"),
+        inertia: float = 0.7,
+        cognitive_weight: float = 0.8,
+        social_weight: float = 1.8,
+        exploration_weight: float = 0.2,
+        iteration: int = 1,
+        exploration_rate: float = 0.2,
+        particle_id: str = "particle",
+        swarm_positions: Sequence[Sequence[int]] = (),
     ) -> List[int]:
-        """Generate a complete next family position from the three PSO positions."""
+        """Generate a complete next position from the full product catalog."""
         total_size = sum(profile.basket_size for profile in self.profiles)
-        candidate_ids = self._prepare_shortlist_ids(
-            candidates,
-            list(dict.fromkeys([
-                *current_position,
-                *personal_best_position,
-                *global_best_position,
-                *shortlist_ids,
-            ])),
-        )
+        candidate_ids = list(range(len(candidates)))
         if not candidate_ids or total_size <= 0:
             return []
+
+        raw_influences = (
+            max(0.0, float(inertia)),
+            max(0.0, float(cognitive_weight)),
+            max(0.0, float(social_weight)),
+            max(0.0, float(exploration_weight)),
+        )
+        influence_total = sum(raw_influences)
+        if influence_total > 0.0:
+            current_share, previous_best_share, collective_best_share, exploration_share = (
+                strength / influence_total for strength in raw_influences
+            )
+        else:
+            # A neutral fallback keeps the prompt meaningful if all strengths
+            # are disabled by configuration.
+            current_share = previous_best_share = collective_best_share = exploration_share = 0.25
 
         prompt_lines: List[str] = []
         if not self._conversation_initialized:
             prompt_lines.extend([
                 "You are optimizing a complete family grocery basket over a sequence of steps.",
-                f"Remember this shared context for all later messages: the basket always contains exactly {total_size} items.",
-                "Duplicate indexes are allowed because multiple family members may want the same item.",
+                f"Remember this shared context for all later messages: the basket always contains exactly {total_size} product IDs.",
+                "Duplicate indexes are allowed because multiple family members may want the same product.",
                 "Family member position blocks:",
                 *self._family_layout_lines(),
                 "Family preferences (consider as many as possible):",
                 *[
-                    f"- {profile.name} : {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
+                    f"- {profile.name}: {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
                     for profile in self.profiles
                 ],
-                "Prefer affordable, healthy items while satisfying the family preferences.",
-                "Use only indexes listed in 'Available items' section.",
+                "The deterministic objective is fitness = total basket price + 1.2 * total health penalty; lower fitness is better.",
+                "Health penalty is lower for products matching more healthy-keyword signals.",
+                "Use product semantics to construct a promising complete basket; do not calculate or report fitness yourself.",
             ])
 
         prompt_lines.extend([
-            "For this optimization step, return a complete next family position as JSON.",
-            f"Current position: {list(current_position)}",
-            f"Personal-best position so far: (fitness {personal_best_fitness}): {list(personal_best_position)}",
-            f"Global-best position so far: (fitness {global_best_fitness}): {list(global_best_position)}",
+            "Construct the next basket.",
+            "Target composition for the next basket:",
+            f"- retain approximately {current_share:.0%} of useful current items",
+            f"- obtain approximately {previous_best_share:.0%} of the basket from useful information in the previous best solution",
+            f"- obtain approximately {collective_best_share:.0%} of the basket from useful information in the best solution found across candidates",
+            f"- approximately {exploration_share:.0%} may be entirely new exploration",
+            "These are influence targets, not mandatory quotas.",
+            "You are allowed to:",
+            "- preserve products from the current position,",
+            "- adopt products from the previous best solution,",
+            "- adopt products from the best solution found across candidates,",
+            "- introduce products not present in either best solution,",
+            "- use price, product type, health characteristics, and interactions among products to construct a promising basket.",
+            "Do not simply copy a best solution mechanically; use the targets as flexible guidance.",
+            f"Current basket (score {current_fitness:.4f}): {list(current_position)}",
+            f"Previous best solution (score {personal_best_fitness}): {list(personal_best_position)}",
+            f"Best solution found across candidates (score {global_best_fitness}): {list(global_best_position)}",
+            f"Variation token for this call: {time.time_ns() % 1000000}.",
+            "Relevant product catalog:",
         ])
-
-        # Available items
-        prompt_lines.append("Available items:")
         prompt_lines.extend(
-            f"- id={item_id} | price={candidates[item_id].amount:.2f} {candidates[item_id].currency} | category={candidates[item_id].category} | product={candidates[item_id].product}"
+            f"- id={item_id} | price={candidates[item_id].amount:.2f} {candidates[item_id].currency} | "
+            f"category={candidates[item_id].category} | health_penalty={health_penalty(candidates[item_id]):.3f} | "
+            f"product={candidates[item_id].product}"
             for item_id in candidate_ids
         )
+        prompt_lines.extend([
+            "Return exactly one JSON object and nothing else: {\"item_ids\":[...]}",
+            f"The item_ids array must contain exactly {total_size} IDs.",
+            f"Every ID must be an integer from 0 through {len(candidates) - 1}.",
+        ])
 
-        # Return format
-        prompt_lines.append("Return exactly one JSON object and nothing else: {\"item_ids\":[...]}")
-        prompt_lines.append(f"The item_ids array must contain exactly {total_size} indexes.")
-
-        # Run the prompt
         parsed = self._extract_json_ids(self._send_prompt("\n".join(prompt_lines)))
+        if len(parsed) != total_size or any(item_id not in candidate_ids for item_id in parsed):
+            print(
+                f"[FamilyLLM] Ignoring incomplete/invalid position "
+                f"({len(parsed)}/{total_size} IDs); keeping current position."
+            )
+            return list(current_position)
         self._conversation_initialized = True
-
-        # Parse the answers
-        valid = [item_id for item_id in parsed if item_id in candidate_ids]
-        print(valid[:total_size])
-        return valid[:total_size]
+        print(f"[FamilyLLM] proposal: {parsed}")
+        return parsed
 
     def _family_layout_lines(self) -> List[str]:
         """Describe the fixed contiguous index blocks in a flat family position."""
@@ -211,12 +240,14 @@ class FamilyLLM:
 
     @staticmethod
     def _extract_json_ids(text: str) -> List[int]:
-        for blob in reversed(re.findall(r"\{[^{}]*}", text, flags=re.DOTALL)):
+        """Extract an item_ids array from a model response."""
+        decoder = json.JSONDecoder()
+        for match in re.finditer(r"\{", text):
             try:
-                data = json.loads(blob)
-            except json.JSONDecodeError:
+                data, _ = decoder.raw_decode(text[match.start():])
+            except (json.JSONDecodeError, TypeError):
                 continue
-            raw_ids = data.get("item_ids")
+            raw_ids = data.get("item_ids") if isinstance(data, dict) else None
             if isinstance(raw_ids, list):
                 result: List[int] = []
                 for value in raw_ids:
@@ -226,4 +257,5 @@ class FamilyLLM:
                         continue
                 return result
         return []
+
 
