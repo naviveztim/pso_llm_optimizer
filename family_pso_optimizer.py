@@ -142,6 +142,7 @@ def run_optimizer(
     num_particles: int = 7,
 ) -> Tuple[List[IterationRecord], Dict[str, Particle], float]:
     """Run the multi-persona PSO loop over the candidate item space."""
+
     if not items:
         raise ValueError("No items loaded from dataset.")
     if not profiles:
@@ -167,69 +168,59 @@ def run_optimizer(
     # Main loop: full catalog -> LLM proposal -> evaluate -> update memories.
     try:
         for iteration in range(1, iterations + 1):
-            # Synchronous PSO: every particle reads the same previous global best.
-            previous_global_best_position = swarm.global_best_position.copy()
-            previous_global_best_fitness = swarm.global_best_fitness
-            next_global_best_position = previous_global_best_position.copy()
-            next_global_best_fitness = previous_global_best_fitness
-            swarm_positions = [
-                particle.position.copy()
-                for particle in swarm.particles.values()
-            ]
+            global_best_fitness_at_start = swarm.global_best_fitness
 
             for particle_name, particle in swarm.particles.items():
+
+                # Check current position fitness_score before proposing a new position.
                 _, current_fitness = evaluate_selection(particle.position, items)
+
+                # Propose new particle position, using its LLM based on its own experience and the swarm's global best.
                 particle.position = swarm.particle_llms[particle_name].propose(
                     candidates=items,
                     current_position=particle.position,
                     personal_best_position=particle.best_selection,
                     personal_best_fitness=particle.best_fitness,
-                    global_best_position=previous_global_best_position,
-                    global_best_fitness=previous_global_best_fitness,
+                    global_best_position=swarm.global_best_position,
+                    global_best_fitness=swarm.global_best_fitness,
                     current_fitness=current_fitness,
                     inertia=PSO_INERTIA,
-                    iteration=iteration,
-                    exploration_rate=max(0.10, 1.0 - iteration / max(iterations, 1)),
-                    particle_id=particle_name,
-                    swarm_positions=swarm_positions,
                 )
 
-                # Apply fitness function to proposed selection
-                family_total_price, family_fitness = evaluate_selection(
+                # Apply fitness_score function to proposed selection
+                total_price, fitness_score = evaluate_selection(
                     particle.position, items
                 )
 
                 # Update particle's best known selection if improved.
-                if family_fitness < particle.best_fitness:
-                    particle.best_fitness = family_fitness
+                if fitness_score < particle.best_fitness:
+                    particle.best_fitness = fitness_score
                     particle.best_selection = particle.position.copy()
 
                 # Update global best selection if improved.
-                if family_fitness < next_global_best_fitness:
-                    next_global_best_fitness = family_fitness
-                    next_global_best_position = particle.position.copy()
+                if fitness_score < swarm.global_best_fitness:
+                    swarm.global_best_fitness = fitness_score
+                    swarm.global_best_position = particle.position.copy()
 
                 history.append(
                     IterationRecord(
                         iteration=iteration,
                         persona=particle_name,
                         selection=particle.position.copy(),
-                        total_price=family_total_price,
-                        penalty=family_fitness - family_total_price,
-                        fitness=family_fitness,
+                        total_price=total_price,
+                        penalty=fitness_score - total_price,
+                        fitness=fitness_score,
                     )
                 )
 
                 print(
                     f"iter={iteration} particle={particle_name} "
-                    f"family_price={family_total_price:.2f} "
-                    f"family_fitness={family_fitness:.2f} "
-                    f"swarm_best={next_global_best_fitness:.2f}"
+                    f"family_price={total_price:.2f} "
+                    f"fitness_score={fitness_score:.2f} "
+                    f"swarm_best={swarm.global_best_fitness:.2f}"
                 )
 
-            swarm.global_best_fitness = next_global_best_fitness
-            swarm.global_best_position = next_global_best_position
-            improvement = previous_global_best_fitness - swarm.global_best_fitness
+            improvement = global_best_fitness_at_start - swarm.global_best_fitness
             if improvement < min_delta:
                 swarm.stagnation_counter += 1
             else:

@@ -137,10 +137,6 @@ class FamilyLLM:
         global_best_fitness: float,
         current_fitness: float = float("nan"),
         inertia: float = 0.7,
-        iteration: int = 1,
-        exploration_rate: float = 0.2,
-        particle_id: str = "particle",
-        swarm_positions: Sequence[Sequence[int]] = (),
     ) -> List[int]:
         """Generate a complete next position from the full product catalog."""
         total_size = sum(profile.basket_size for profile in self.profiles)
@@ -168,6 +164,7 @@ class FamilyLLM:
             current_share = previous_best_share = collective_best_share = exploration_share = 0.25
 
         prompt_lines: List[str] = []
+        # Set initial context to particle instance of LLM
         if not self._conversation_initialized:
             prompt_lines.extend([
                 "You are optimizing a complete family grocery basket over a sequence of steps.",
@@ -185,6 +182,7 @@ class FamilyLLM:
                 "Use product semantics to construct a promising complete basket; do not calculate or report fitness yourself.",
             ])
 
+        # Prepare the prompt for the next basket proposal
         prompt_lines.extend([
             "Construct the next basket.",
             "Target composition for the next basket:",
@@ -218,15 +216,20 @@ class FamilyLLM:
             f"Every ID must be an integer from 0 through {len(candidates) - 1}.",
         ])
 
+        # Send request to LLM
         parsed = self._extract_json_ids(self._send_prompt("\n".join(prompt_lines)))
+
+        # Parse the response and validate the proposed basket
         if len(parsed) != total_size or any(item_id not in candidate_ids for item_id in parsed):
             print(
                 f"[FamilyLLM] Ignoring incomplete/invalid position "
                 f"({len(parsed)}/{total_size} IDs); keeping current position."
             )
             return list(current_position)
+
         self._conversation_initialized = True
         print(f"[FamilyLLM] proposal: {parsed}")
+
         return parsed
 
     def _family_layout_lines(self) -> List[str]:
