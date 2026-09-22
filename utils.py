@@ -9,7 +9,7 @@ import random
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Mapping, Optional, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 
 @dataclass
@@ -32,9 +32,7 @@ class PersonaProfile:
 
 @dataclass
 class Particle:
-    profiles: Dict[str, PersonaProfile]
     position: List[int]
-    best_position: List[int]
     best_selection: List[int] = field(default_factory=list)
     best_fitness: float = float("inf")
 

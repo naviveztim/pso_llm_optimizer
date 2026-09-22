@@ -6,6 +6,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import random
 import re
 import threading
 import time
@@ -13,6 +14,7 @@ from concurrent.futures import Future
 from typing import Any, List, Sequence, cast
 
 from utils import OfferItem, PersonaProfile, health_penalty
+from config import PSO_COGNITIVE, PSO_EXPLORATION, PSO_SOCIAL
 
 
 class FamilyLLM:
@@ -25,12 +27,14 @@ class FamilyLLM:
         profiles: Sequence[PersonaProfile] = (),
         max_new_tokens: int = 384,
         temperature: float = 0.85,
+        random_seed: int = 0,
     ) -> None:
         self.copilot_model = copilot_model
         self.token_env_var = token_env_var
         self.profiles = tuple(profiles)
         self.max_new_tokens = max_new_tokens
         self.temperature = temperature
+        self._influence_rng = random.Random(random_seed)
         self._conversation_initialized = False
         self._loop: asyncio.AbstractEventLoop | None = None
         self._loop_thread: threading.Thread | None = None
@@ -133,9 +137,6 @@ class FamilyLLM:
         global_best_fitness: float,
         current_fitness: float = float("nan"),
         inertia: float = 0.7,
-        cognitive_weight: float = 0.8,
-        social_weight: float = 1.8,
-        exploration_weight: float = 0.2,
         iteration: int = 1,
         exploration_rate: float = 0.2,
         particle_id: str = "particle",
@@ -147,11 +148,14 @@ class FamilyLLM:
         if not candidate_ids or total_size <= 0:
             return []
 
+        cognitive_weight = PSO_COGNITIVE * self._influence_rng.random()
+        social_weight = PSO_SOCIAL * self._influence_rng.random()
+        exploration_weight = PSO_EXPLORATION * self._influence_rng.random()
         raw_influences = (
             max(0.0, float(inertia)),
-            max(0.0, float(cognitive_weight)),
-            max(0.0, float(social_weight)),
-            max(0.0, float(exploration_weight)),
+            max(0.0, cognitive_weight),
+            max(0.0, social_weight),
+            max(0.0, exploration_weight),
         )
         influence_total = sum(raw_influences)
         if influence_total > 0.0:
