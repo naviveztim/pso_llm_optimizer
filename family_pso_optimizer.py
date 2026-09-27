@@ -17,13 +17,13 @@ from utils import (
     PersonaProfile,
     health_penalty,
     load_offers,
+    make_profiles,
 )
-from config import make_profiles
 from config import (
     DEFAULT_DATA_FILE_PATH,
     DEFAULT_OUTPUT,
-    DEFAULT_COPILOT_MODEL,
-    DEFAULT_COPILOT_TOKEN_ENV,
+    DEFAULT_MODEL,
+    DEFAULT_TOKEN_ENV,
     DEFAULT_NUM_ITERATIONS,
     DEFAULT_COUNTRY,
     MAX_CANDIDATES,
@@ -315,18 +315,18 @@ def parse_args() -> argparse.Namespace:
         "--data-file",
         type=Path,
         default= DEFAULT_DATA_FILE_PATH,
-        help="Path to Kaufland offers JSON file.",
+        help="Path to offers JSON file.",
     )
     parser.add_argument(
         "--copilot-model",
         type=str,
-        default=DEFAULT_COPILOT_MODEL,
+        default=DEFAULT_MODEL,
         help="Copilot model session identifier (e.g. auto).",
     )
     parser.add_argument(
         "--copilot-token-env",
         type=str,
-        default=DEFAULT_COPILOT_TOKEN_ENV,
+        default=DEFAULT_TOKEN_ENV,
         help="Environment variable name containing GitHub token for CopilotClient.",
     )
     parser.add_argument(
@@ -337,7 +337,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--country", type=str, default=DEFAULT_COUNTRY,
                         help="Country code to filter offers (e.g. DE).")
-    parser.add_argument("--iterations", type=int, default=DEFAULT_NUM_ITERATIONS, help="Maximum PSO iterations.")
+    parser.add_argument("--iterations", type=int, default=DEFAULT_NUM_ITERATIONS,
+                        help="Maximum PSO iterations.")
     parser.add_argument("--stagnation-window", type=int, default=DEFAULT_STAGNATION_WINDOW,
                         help="Stop if no significant improvement for this many rounds.")
     parser.add_argument("--min-delta", type=float, default=DEFAULT_MIN_DELTA,

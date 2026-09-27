@@ -4,12 +4,10 @@
 from __future__ import annotations
 
 import json
-import math
-import random
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Tuple
+from typing import List, Sequence
 
 
 @dataclass
@@ -45,6 +43,47 @@ class IterationRecord:
     selection: List[int]
     total_price: float
     fitness: float
+
+def make_profiles() -> List[PersonaProfile]:
+	"""Return the family personas and their basket requirements."""
+
+	return [
+		PersonaProfile(
+			name="father",
+			role="father",
+			keywords=["beer", "bier", "meat", "fleisch", "grill", "sausage", "wurst"],
+			basket_size=12,
+			min_preferred_items=4,
+		),
+		PersonaProfile(
+			name="mother",
+			role="mother",
+			keywords=["gemuese", "gemuse", "obst", "salat", "bio", "tomaten", "gurke"],
+			basket_size=12,
+			min_preferred_items=4,
+		),
+		PersonaProfile(
+			name="daughter",
+			role="daughter",
+			keywords=["chocolate", "schokolade", "candy", "bonbon", "keks", "ice", "dessert"],
+			basket_size=10,
+			min_preferred_items=3,
+		),
+		PersonaProfile(
+			name="son",
+			role="son",
+			keywords=["chocolate", "schokolade", "snack", "chips", "candy", "cola"],
+			basket_size=10,
+			min_preferred_items=3,
+		),
+		PersonaProfile(
+			name="mother_in_law",
+			role="mother in law",
+			keywords=["detergent", "clean", "reiniger", "spul", "putz", "haushalt", "wasch"],
+			basket_size=11,
+			min_preferred_items=3,
+		),
+	]
 
 
 def normalize(text: str) -> str:
