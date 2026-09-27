@@ -9,7 +9,7 @@ import random
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Sequence, Tuple
-from family_llm import FamilyLLM
+from particle_llm import ParticleLLM
 from utils import (
     IterationRecord,
     OfferItem,
@@ -40,7 +40,7 @@ class SwarmState:
     """Mutable state shared by the particles during one optimizer run."""
 
     particles: Dict[str, Particle]
-    particle_llms: Dict[str, FamilyLLM]
+    particle_llms: Dict[str, ParticleLLM]
     global_best_position: List[int]
     global_best_fitness: float
     stagnation_counter: int = 0
@@ -54,38 +54,45 @@ def _initialize_swarm(
     copilot_token_env: str,
 ) -> SwarmState:
     """Create particles, LLM sessions, and the initial global best."""
-    item_count = len(items)
-    basket_size = sum(profile.basket_size for profile in profiles)
+
     particles: Dict[str, Particle] = {}
-    particle_llms: Dict[str, FamilyLLM] = {}
+    particle_llms: Dict[str, ParticleLLM] = {}
     used_positions = set()
+
+    # Count of distinct items available for selection.
+    item_count = len(items)
+
+    # Total amount of items to be selected across all family members.
+    basket_size = sum(profile.basket_size for profile in profiles)
 
     try:
         for particle_index in range(num_particles):
 
-            # Select randomly distinct initial positions for each particle.
+            # Select randomly, distinct initial positions for each particle.
             rng = random.Random(SEED + particle_index)
             position = [rng.randrange(item_count) for _ in range(basket_size)]
 
-            # Keep initial particles distinct while preserving deterministic seeds.
+            # This avoids multiple particles starting from exactly the same search point,
             position_key = tuple(position)
             while position_key in used_positions:
                 position[-1] = (position[-1] + 1) % item_count
                 position_key = tuple(position)
             used_positions.add(position_key)
 
-            # Initial call of the fitness function to set the particle's best known selection and fitness.
+            # Initial call of the fitness function
             _, fitness = evaluate_selection(position, items)
 
+            # Register the particle's current and best-known state,
             particle_name = f"particle_{particle_index}"
             particles[particle_name] = Particle(
                 position=position,
                 best_selection=position.copy(),
                 best_fitness=fitness,
+                current_fitness=fitness,
             )
-            # Represents the particle’s individual search experience,
-            # that's why we keep a separate LLM instance per particle.
-            particle_llms[particle_name] = FamilyLLM(
+
+            # Create dedicated LLM session for each particle
+            particle_llms[particle_name] = ParticleLLM(
                 copilot_model=copilot_model,
                 token_env_var=copilot_token_env,
                 profiles=profiles,
@@ -96,7 +103,7 @@ def _initialize_swarm(
             particle_llm.close()
         raise
 
-    # Define best particle as the one with the lowest fitness value among all particles.
+    # Define best particle (the one with the lowest fitness value among all particles.)
     best_particle = min(particles.values(), key=lambda particle: particle.best_fitness)
 
     return SwarmState(
@@ -150,11 +157,6 @@ def run_optimizer(
     if num_particles < 1:
         raise ValueError("num_particles must be at least 1.")
 
-    # Define the number of items to be purchased
-    basket_size = sum(profile.basket_size for profile in profiles)
-    if basket_size < 1:
-        raise ValueError("The family must require at least one basket item.")
-
     # Initialize the swarm with particles and their LLMs.
     swarm = _initialize_swarm(
         items=items,
@@ -172,10 +174,7 @@ def run_optimizer(
 
             for particle_name, particle in swarm.particles.items():
 
-                # Check current position fitness_score before proposing a new position.
-                _, current_fitness = evaluate_selection(particle.position, items)
-
-                # Propose new particle position, using its LLM based on its own experience and the swarm's global best.
+                # Propose new particle position
                 particle.position = swarm.particle_llms[particle_name].propose(
                     candidates=items,
                     current_position=particle.position,
@@ -183,14 +182,15 @@ def run_optimizer(
                     personal_best_fitness=particle.best_fitness,
                     global_best_position=swarm.global_best_position,
                     global_best_fitness=swarm.global_best_fitness,
-                    current_fitness=current_fitness,
+                    current_fitness=particle.current_fitness,
                     inertia=PSO_INERTIA,
                 )
 
-                # Apply fitness_score function to proposed selection
+                # Apply fitness function to proposed selection
                 total_price, fitness_score = evaluate_selection(
                     particle.position, items
                 )
+                particle.current_fitness = fitness_score
 
                 # Update particle's best known selection if improved.
                 if fitness_score < particle.best_fitness:
@@ -208,7 +208,6 @@ def run_optimizer(
                         persona=particle_name,
                         selection=particle.position.copy(),
                         total_price=total_price,
-                        penalty=fitness_score - total_price,
                         fitness=fitness_score,
                     )
                 )

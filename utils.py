@@ -35,6 +35,7 @@ class Particle:
     position: List[int]
     best_selection: List[int] = field(default_factory=list)
     best_fitness: float = float("inf")
+    current_fitness: float = float("inf")
 
 
 @dataclass
@@ -43,7 +44,6 @@ class IterationRecord:
     persona: str
     selection: List[int]
     total_price: float
-    penalty: float
     fitness: float
 
 
@@ -120,49 +120,4 @@ def health_penalty(item: OfferItem) -> float:
     return max(0.0, 1.0 - health_score(item) / len(HEALTHY_KEYWORDS))
 
 
-def sigmoid(value: float) -> float:
-    """Return a numerically stable sigmoid."""
-    if value >= 0:
-        z = math.exp(-value)
-        return 1.0 / (1.0 + z)
-    z = math.exp(value)
-    return z / (1.0 + z)
 
-
-def top_indices(values: Sequence[float], k: int) -> List[int]:
-    """Return indices of the largest k values."""
-    indexed = list(enumerate(values))
-    indexed.sort(key=lambda x: x[1], reverse=True)
-    return [idx for idx, _ in indexed[:k]]
-
-
-def selection_to_vector(selection: Sequence[int], dimension: int) -> List[float]:
-    """Convert selected IDs to a dense one-hot-like optimizer vector."""
-    vector = [0.0] * dimension
-    for idx in selection:
-        if 0 <= idx < dimension:
-            vector[idx] = 1.0
-    return vector
-
-
-def shortlist_from_position(
-    position: Sequence[int],
-    profiles: Sequence[PersonaProfile],
-    items: Sequence[OfferItem],
-    shortlist_size: int,
-) -> List[int]:
-    """Rank item IDs by position frequency, preferences, and price."""
-    key_counts: Dict[Tuple[str, str], int] = {}
-    for item in items:
-        key = (normalize(item.product), normalize(item.category))
-        key_counts[key] = key_counts.get(key, 0) + 1
-
-    scores = []
-    for idx, item in enumerate(items):
-        key = (normalize(item.product), normalize(item.category))
-        duplicate_penalty = 0.02 * max(0, key_counts.get(key, 1) - 1)
-        position_frequency = position.count(idx)
-        preference_score = sum(keyword_score(item, profile.keywords) for profile in profiles)
-        score = 0.8 * position_frequency + 0.4 * preference_score - 0.03 * item.amount - duplicate_penalty
-        scores.append(score)
-    return top_indices(scores, shortlist_size)

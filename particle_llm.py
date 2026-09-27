@@ -17,7 +17,7 @@ from utils import OfferItem, PersonaProfile, health_penalty
 from config import PSO_COGNITIVE, PSO_EXPLORATION, PSO_SOCIAL
 
 
-class FamilyLLM:
+class ParticleLLM:
     """LLM backend that generates one complete family position per call."""
 
     def __init__(
@@ -119,7 +119,7 @@ class FamilyLLM:
             }))
             return str(cast(Any, response).data.content or "")
         except asyncio.TimeoutError:
-            print("[FamilyLLM] Copilot API timeout — no proposal returned for this step.")
+            print("[ParticleLLM] Copilot API timeout — no proposal returned for this step.")
             return ""
 
     def _send_prompt(self, prompt: str) -> str:
@@ -222,13 +222,13 @@ class FamilyLLM:
         # Parse the response and validate the proposed basket
         if len(parsed) != total_size or any(item_id not in candidate_ids for item_id in parsed):
             print(
-                f"[FamilyLLM] Ignoring incomplete/invalid position "
+                f"[ParticleLLM] Ignoring incomplete/invalid position "
                 f"({len(parsed)}/{total_size} IDs); keeping current position."
             )
             return list(current_position)
 
         self._conversation_initialized = True
-        print(f"[FamilyLLM] proposal: {parsed}")
+        print(f"[ParticleLLM] proposal: {parsed}")
 
         return parsed
 

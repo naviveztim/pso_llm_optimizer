@@ -1,8 +1,8 @@
 seven complete-family particles by default (`--num-particles`).
 - The swarm best is one complete family proposal: the lowest-fitness flat list found by any particle.
 This project builds a family shopping plan with iterative optimization and optional Copilot API guidance.
-- `FamilyLLM`: shared optional LLM backend that updates item-id positions from each persona shortlist.
-- `FamilyLLM`: shared optional LLM backend that updates item-id positions from each persona shortlist.
+- `ParticleLLM`: shared optional LLM backend that updates item-id positions from each persona shortlist.
+- `ParticleLLM`: shared optional LLM backend that updates item-id positions from each persona shortlist.
 ## How the solution is updated (principles)
 ## How the solution is updated (principles)
 - Creates five family personas with different preferences.
@@ -27,7 +27,7 @@ The program validates IDs and basket length, calculates fitness deterministicall
      - `total_price` (sum of selected items),
 ## LLM response protocol
 
-`FamilyLLM.propose()` returns a complete position parsed from JSON:
+`ParticleLLM.propose()` returns a complete position parsed from JSON:
    - Only IDs in the corresponding removal/addition pools are accepted.
 ```json
 {"item_ids":[0,17,42]}
@@ -42,16 +42,16 @@ The family objective is therefore price plus a positive health penalty. Healthin
 ## Main structures
 The family objective is therefore price plus a positive health penalty. Healthiness reduces the penalty; it is never subtracted from price.
 - `IterationRecord`: audit row with selection, price, penalty, and fitness.
-- `FamilyLLM`: optional stateful Copilot client that generates local swaps.
+- `ParticleLLM`: optional stateful Copilot client that generates local swaps.
 Healthiness reduces the penalty; it is never subtracted from price.
 - `Particle`: current flat basket and personal-best memory.
 - `PSO_INERTIA = 0.7`
 - `SwapProposal`: one `{remove, add}` replacement.
-- `FamilyLLM`: optional stateful Copilot client that generates local swaps.
+- `ParticleLLM`: optional stateful Copilot client that generates local swaps.
 - `ALPHA_MOVE_SIZE = 0.3`
 - `Particle`: current flat basket and previous-best memory.
 - `PSO_INERTIA = 0.7`
-- `FamilyLLM`: optional stateful Copilot client that generates complete positions.
+- `ParticleLLM`: optional stateful Copilot client that generates complete positions.
 - `PSO_EXPLORATION = 0.2`
 - `ALPHA_MOVE_SIZE = 0.3`
 - `CANDIDATE_BUDGET = 20`
