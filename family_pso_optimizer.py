@@ -32,6 +32,7 @@ from config import (
     DEFAULT_STAGNATION_WINDOW,
     DEFAULT_MIN_DELTA,
     PSO_INERTIA,
+    HEALTH_WEIGHT,
 )
 
 
@@ -118,24 +119,32 @@ def evaluate_selection(
     selection: Sequence[int],
     items: Sequence[OfferItem],
 ) -> Tuple[float, float]:
-    """Fitness function - evaluate the basket, where lower fitness_score means a better basket.
+    """Evaluate a basket using its price and health penalty.
 
-    ``health_score`` measures positive health signals, so it must be converted
-    to a penalty before being combined with price.  Normalizing by the number
-    of configured health keywords keeps the penalty bounded per item and
-    prevents the raw keyword count from overwhelming the price term.
+    Lower fitness values represent better selections. The fitness is computed
+    as ``total_price + HEALTH_WEIGHT * total_health_penalty``; repeated item
+    indices are therefore counted once for every occurrence in ``selection``.
+
+    Args:
+        selection: Item indices making up the complete family basket.
+        items: Offer catalog used to resolve the selected indices.
+
+    Returns:
+        A tuple containing the total price and the combined fitness value.
+
+    Raises:
+        IndexError: If ``selection`` contains an index outside ``items``.
     """
+
     # Compute the total price of the selected items.
     total_price = sum(items[i].amount for i in selection)
 
     # Compute the total health penalty of the selected items.
     total_health_penalty = sum(health_penalty(items[i]) for i in selection)
-    health_weight = 1.2
 
     # Combine price and health penalty into a single fitness_score score.
-    fitness_score = total_price + health_weight * total_health_penalty
+    fitness_score = total_price + HEALTH_WEIGHT * total_health_penalty
     return total_price, fitness_score
-
 
 
 def run_optimizer(
@@ -148,7 +157,31 @@ def run_optimizer(
     copilot_token_env: str,
     num_particles: int = 7,
 ) -> Tuple[List[IterationRecord], Dict[str, Particle], float]:
-    """Run the multi-persona PSO loop over the candidate item space."""
+    """Run the LLM-assisted PSO loop over the candidate item space.
+
+    Each particle proposes a complete family position, evaluates it, updates
+    its personal best, and may update the swarm's global best. LLM sessions are
+    closed in a ``finally`` block, including when proposal or evaluation fails.
+    The loop stops after the requested iterations or when the global best fails
+    to improve by ``min_delta`` for ``stagnation_window`` consecutive rounds.
+
+    Args:
+        items: Candidate offers from which family baskets are constructed.
+        profiles: Family member profiles defining the complete basket size.
+        iterations: Maximum number of optimizer iterations to execute.
+        stagnation_window: Number of insignificant rounds allowed before stopping.
+        min_delta: Minimum global-fitness improvement considered significant.
+        copilot_model: Model identifier passed to each particle LLM session.
+        copilot_token_env: Environment variable containing API authentication.
+        num_particles: Number of independently seeded particles to initialize.
+
+    Returns:
+        A tuple containing iteration history, final particle states, and the
+        best fitness found by the swarm.
+
+    Raises:
+        ValueError: If no items, no profiles, or fewer than one particle is provided.
+    """
 
     if not items:
         raise ValueError("No items loaded from dataset.")
@@ -242,6 +275,25 @@ def build_result(
     global_best_fitness: float,
     iterations_requested: int,
 ) -> Dict[str, Any]:
+    """Build the JSON-serializable report for the completed optimization run.
+
+    The result includes run metadata, the best complete family proposal, and
+    each particle's best proposal split into baskets for the family members.
+    The winning proposal is selected from the particle with the lowest
+    personal-best fitness.
+
+    Args:
+        items: Offer catalog used to resolve selected item indices.
+        profiles: Family member profiles used to split selections into baskets.
+        history: Iteration records used to determine the completed iteration.
+        particles: Final particle states from the optimizer.
+        global_best_fitness: Best fitness found by the swarm.
+        iterations_requested: Maximum number of iterations requested.
+
+    Returns:
+        A dictionary containing metadata and serialized optimization proposals.
+    """
+
     # Report only the latest completed iteration across personas.
     latest_iteration = max((h.iteration for h in history), default=0)
 
@@ -309,6 +361,13 @@ def build_result(
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse command-line options for the family shopping optimizer.
+
+    Returns:
+        An ``argparse.Namespace`` containing dataset, model, output, country,
+        iteration, convergence, candidate-limit, particle-count, and seed options.
+    """
+
     # Build CLI with dataset/model/runtime tuning parameters.
     parser = argparse.ArgumentParser(description="Run family PSO shopping optimization with optional Copilot API proposals.")
     parser.add_argument(
@@ -357,6 +416,12 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    """Run the command-line optimizer and write the best plan to JSON.
+
+    The function loads offers and family profiles, executes ``run_optimizer``,
+    serializes the result from ``build_result``, and prints a concise summary.
+    """
+
     args = parse_args()
 
     # Parse inputs and load optimization universe.

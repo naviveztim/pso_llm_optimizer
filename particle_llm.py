@@ -43,7 +43,12 @@ class ParticleLLM:
         self._session: Any = None
 
     def close(self) -> None:
-        """Close the shared Copilot session and its background event loop."""
+        """Close the Copilot session and stop the background event loop.
+
+        The asynchronous client shutdown is scheduled on the worker loop and
+        waited on for up to 30 seconds. Calling this method before the loop has
+        started is safe and has no effect.
+        """
         loop = self._loop
         thread = self._loop_thread
         if loop is None or thread is None:
@@ -138,7 +143,28 @@ class ParticleLLM:
         current_fitness: float = float("nan"),
         inertia: float = 0.7,
     ) -> List[int]:
-        """Generate a complete next position from the full product catalog."""
+        """Generate and validate a complete next particle position.
+
+        The prompt combines the current position, personal best, global best,
+        their fitness values, and normalized PSO influence weights. The model
+        must return exactly one JSON object containing a valid ``item_ids``
+        array. Invalid, incomplete, or unavailable responses fall back to the
+        current position so the optimizer always receives a usable selection.
+
+        Args:
+            candidates: Full catalog of offers available for selection.
+            current_position: Particle's current complete family position.
+            personal_best_position: Best position found by this particle.
+            personal_best_fitness: Fitness of ``personal_best_position``.
+            global_best_position: Best position found by the swarm.
+            global_best_fitness: Fitness of ``global_best_position``.
+            current_fitness: Fitness of ``current_position`` for prompt context.
+            inertia: Relative influence assigned to retaining the current position.
+
+        Returns:
+            A valid list of candidate indices with the configured total basket
+            size, or a copy of ``current_position`` when the response is invalid.
+        """
         total_size = sum(profile.basket_size for profile in self.profiles)
         candidate_ids = list(range(len(candidates)))
         if not candidate_ids or total_size <= 0:

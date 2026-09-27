@@ -30,3 +30,4 @@ HEALTHY_KEYWORDS = (
 	"fresh",
 	"frisch",
 )
+HEALTH_WEIGHT = 1.2

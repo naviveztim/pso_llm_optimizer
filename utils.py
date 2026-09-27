@@ -12,6 +12,8 @@ from typing import List, Sequence
 
 @dataclass
 class OfferItem:
+    """Represent one catalog offer and its pricing metadata."""
+
     item_id: int
     product: str
     category: str
@@ -21,6 +23,8 @@ class OfferItem:
 
 @dataclass
 class PersonaProfile:
+    """Describe a family member's preferences and required basket size."""
+
     name: str
     role: str
     keywords: List[str]
@@ -30,6 +34,8 @@ class PersonaProfile:
 
 @dataclass
 class Particle:
+    """Store a particle's current position and personal optimization history."""
+
     position: List[int]
     best_selection: List[int] = field(default_factory=list)
     best_fitness: float = float("inf")
@@ -38,6 +44,8 @@ class Particle:
 
 @dataclass
 class IterationRecord:
+    """Record one particle's evaluated proposal during an optimizer iteration."""
+
     iteration: int
     persona: str
     selection: List[int]
@@ -45,54 +53,86 @@ class IterationRecord:
     fitness: float
 
 def make_profiles() -> List[PersonaProfile]:
-	"""Return the family personas and their basket requirements."""
+    """Create the configured family personas and their basket requirements.
 
-	return [
-		PersonaProfile(
-			name="father",
-			role="father",
-			keywords=["beer", "bier", "meat", "fleisch", "grill", "sausage", "wurst"],
-			basket_size=12,
-			min_preferred_items=4,
-		),
-		PersonaProfile(
-			name="mother",
-			role="mother",
-			keywords=["gemuese", "gemuse", "obst", "salat", "bio", "tomaten", "gurke"],
-			basket_size=12,
-			min_preferred_items=4,
-		),
-		PersonaProfile(
-			name="daughter",
-			role="daughter",
-			keywords=["chocolate", "schokolade", "candy", "bonbon", "keks", "ice", "dessert"],
-			basket_size=10,
-			min_preferred_items=3,
-		),
-		PersonaProfile(
-			name="son",
-			role="son",
-			keywords=["chocolate", "schokolade", "snack", "chips", "candy", "cola"],
-			basket_size=10,
-			min_preferred_items=3,
-		),
-		PersonaProfile(
-			name="mother_in_law",
-			role="mother in law",
-			keywords=["detergent", "clean", "reiniger", "spul", "putz", "haushalt", "wasch"],
-			basket_size=11,
-			min_preferred_items=3,
-		),
-	]
+    Returns:
+      A new list of ``PersonaProfile`` objects for each family member. Each
+      profile includes preference keywords, a required basket size, and the
+      minimum number of preferred items.
+    """
+
+    return [
+        PersonaProfile(
+            name="father",
+            role="father",
+            keywords=["beer", "bier", "meat", "fleisch", "grill", "sausage", "wurst"],
+            basket_size=12,
+            min_preferred_items=4,
+        ),
+        PersonaProfile(
+            name="mother",
+            role="mother",
+            keywords=["gemuese", "gemuse", "obst", "salat", "bio", "tomaten", "gurke"],
+            basket_size=12,
+            min_preferred_items=4,
+        ),
+        PersonaProfile(
+            name="daughter",
+            role="daughter",
+            keywords=["chocolate", "schokolade", "candy", "bonbon", "keks", "ice", "dessert"],
+            basket_size=10,
+            min_preferred_items=3,
+        ),
+        PersonaProfile(
+            name="son",
+            role="son",
+            keywords=["chocolate", "schokolade", "snack", "chips", "candy", "cola"],
+            basket_size=10,
+            min_preferred_items=3,
+        ),
+        PersonaProfile(
+            name="mother_in_law",
+            role="mother in law",
+            keywords=["detergent", "clean", "reiniger", "spul", "putz", "haushalt", "wasch"],
+            basket_size=11,
+            min_preferred_items=3,
+        ),
+    ]
 
 
 def normalize(text: str) -> str:
-    """Canonicalize free text for robust keyword matching."""
+    """Canonicalize free text for robust keyword matching.
+
+    Args:
+      text: Input text to lowercase and normalize.
+
+    Returns:
+      The lowercased text with repeated whitespace collapsed and surrounding
+      whitespace removed.
+    """
     return re.sub(r"\s+", " ", text.lower()).strip()
 
 
 def load_offers(dataset_path: Path, country_code: str, max_candidates: int) -> List[OfferItem]:
-    """Load valid offers, filter by country, and keep the cheapest candidates."""
+    """Load, validate, filter, and sort offers from a JSON dataset.
+
+    Offers without a valid price are ignored. When ``country_code`` is non-empty,
+    only offers listing that country are retained. The result is sorted by amount,
+    limited to ``max_candidates``, and assigned contiguous item IDs starting at 0.
+
+    Args:
+      dataset_path: Path to a JSON file containing a ``categories`` mapping.
+      country_code: Country code required in each offer's validity metadata.
+      max_candidates: Maximum number of cheapest valid offers to return.
+
+    Returns:
+      A sorted list of normalized ``OfferItem`` objects.
+
+    Raises:
+      FileNotFoundError: If ``dataset_path`` does not exist.
+      json.JSONDecodeError: If the file is not valid JSON.
+    """
+
     payload = json.loads(dataset_path.read_text(encoding="utf-8"))
     categories = payload.get("categories") or {}
     offers: List[OfferItem] = []
@@ -134,7 +174,17 @@ def load_offers(dataset_path: Path, country_code: str, max_candidates: int) -> L
 
 
 def keyword_score(item: OfferItem, keywords: Sequence[str]) -> float:
-    """Count how many configured keywords appear in product/category text."""
+    """Count configured keyword matches in an offer's product and category text.
+
+    Args:
+    item: Offer whose product and category fields are searched.
+    keywords: Substrings to look for after text normalization.
+
+    Returns:
+    A floating-point count of matching keywords. Each keyword contributes at
+    most one point, even if it appears multiple times.
+    """
+
     text = normalize(f"{item.product} {item.category}")
     score = 0.0
     for keyword in keywords:
@@ -144,14 +194,31 @@ def keyword_score(item: OfferItem, keywords: Sequence[str]) -> float:
 
 
 def health_score(item: OfferItem) -> float:
-    """Return the positive healthy-keyword signal for an item."""
+    """Return the positive healthy-keyword signal for an offer.
+
+    Args:
+      item: Offer whose product and category text should be scored.
+
+    Returns:
+      The number of configured healthy keywords matching the offer.
+    """
+
     from config import HEALTHY_KEYWORDS
 
     return keyword_score(item, HEALTHY_KEYWORDS)
 
 
 def health_penalty(item: OfferItem) -> float:
-    """Return a bounded penalty where healthier keyword matches score lower."""
+    """Return a bounded penalty where healthier offers score lower.
+
+    Args:
+      item: Offer to evaluate against the configured healthy keywords.
+
+    Returns:
+      A value from 0.0 through 1.0, calculated as one minus the normalized
+      health score. If no healthy keywords are configured, returns 0.0.
+    """
+
     from config import HEALTHY_KEYWORDS
 
     if not HEALTHY_KEYWORDS:
