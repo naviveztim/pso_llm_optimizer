@@ -194,7 +194,8 @@ class ParticleLLM:
         if not self._conversation_initialized:
             prompt_lines.extend([
                 "You are optimizing a complete family grocery basket over a sequence of steps.",
-                f"Remember this shared context for all later messages: the basket always contains exactly {total_size} product IDs.",
+                f"Remember this shared context for all later messages: "
+                f"the basket always contains exactly {total_size} product IDs.",
                 "Duplicate indexes are allowed because multiple family members may want the same product.",
                 "Family member position blocks:",
                 *self._family_layout_lines(),
@@ -203,9 +204,8 @@ class ParticleLLM:
                     f"- {profile.name}: {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
                     for profile in self.profiles
                 ],
-                "The deterministic objective is fitness = total basket price + 1.2 * total health penalty; lower fitness is better.",
-                "Health penalty is lower for products matching more healthy-keyword signals.",
-                "Use product semantics to construct a promising complete basket; do not calculate or report fitness yourself.",
+                "Select as healthier as possible products for the basket, but try to propose as lower budget products as possible.",
+                "Use product semantics to construct a promising complete basket, not just a random selection of IDs.",
             ])
 
         # Prepare the prompt for the next basket proposal
