@@ -12,50 +12,22 @@ The configured family has five contiguous basket blocks:
 | mother-in-law | 11 | detergent, cleaning, household products |
 Together these blocks form one flat position of **55 item IDs** (12 + 12 + 10 + 10 + 11). IDs may repeat because the same catalog product can be selected for more than one family member. The LLM is shown the block layout so it can keep each part of the flat position associated with the appropriate member.
 Before optimization, `load_offers()` filters offers by country, ignores offers without a valid price, sorts the remaining offers by price, keeps at most `MAX_CANDIDATES` offers, and renumbers them from zero.
-## What “PSO” means in this project
-This is **PSO-inspired LLM search**, not classical mathematical PSO. The implementation keeps the swarm concepts of particles, personal bests, a collective best, fitness comparison, inertia/cognitive/social/exploration coefficients, and stagnation-based stopping. However, it does **not** maintain a velocity vector, calculate `v = v + ...`, or update a numeric position with `x = x + v`. A position is a discrete list of product IDs, so ordinary continuous PSO equations do not apply directly.
-The actual update algorithm is:
-```text
-initialize each particle with a random complete family basket
-evaluate each basket
-set particle.best_selection and particle.best_fitness
-set swarm.global_best_position and swarm.global_best_fitness
-repeat for each iteration:
-    for each particle:
-        calculate four normalized influence shares
-        build a prompt containing:
-            - the particle's current basket
-            - its personal-best basket
-            - the swarm's collective-best basket
-            - all three fitness values
-            - the complete candidate catalog
-        ask the LLM to generate a complete next basket
-        parse and validate the returned item IDs
-        if invalid, keep the current basket
-        evaluate the resulting basket
-        replace the particle's personal best if the score improves
-        replace the swarm's collective best if the score improves
-    stop early if the swarm has stagnated
-```
-Therefore, the LLM is the **position-update operator**. The PSO-inspired values do not modify item IDs mathematically; they are converted into textual percentage targets that tell the LLM how strongly to consider the current position, personal best, collective best, and new exploration. The search can be described as a swarm of LLM-guided particles with PSO-style memory, rather than as a full classical PSO implementation.## How the PSO-like prompts work
-The search state is maintained independently for each particle:
-- **Current position:** the particle's latest complete 55-ID family basket.
-- **Personal best:** the best position found by that particle so far.
-- **Collective best:** the best complete position found by any particle.
-- **Fitness values:** the scores for the current, personal-best, and collective-best positions.
-For every particle and iteration, `ParticleLLM.propose()` creates a prompt containing those three positions and their scores, followed by the complete candidate catalog. Each catalog row includes the item ID, price, currency, category, product name, and health penalty. The model is asked to construct a new complete basket rather than to return a single swap.
-The prompt translates the PSO-inspired coefficients into four normalized, randomized influence shares:
-1. **Current position** — controlled by `PSO_INERTIA` (`0.7` by default).
-2. **Personal best** — based on `PSO_COGNITIVE` (`0.8`) multiplied by a per-call random factor.
-3. **Collective best** — based on `PSO_SOCIAL` (`1.8`) multiplied by a per-call random factor.
-4. **Exploration** — based on `PSO_EXPLORATION` (`0.2`) multiplied by a per-call random factor.
-The normalized shares are presented as soft targets such as “retain about 40%” or “use about 15% for exploration.” They are guidance, not quotas. The model may preserve current products, borrow from either best position, or introduce products that appear in neither best position. The prompt asks it to balance price, product type, health characteristics, and product interactions.
-The response protocol is deliberately strict:
+## How the 55-item particle vector changes
+Each particle is a vector of 55 catalog IDs. One update replaces the whole vector; the code does not edit one coordinate at a time.
+For each particle, `ParticleLLM.propose()` receives:
+- the current 55-ID vector;
+- the particle's best 55-ID vector and its fitness;
+- the swarm's best 55-ID vector and its fitness;
+- four influence percentages for the current vector, personal best, swarm best, and exploration; and
+- the complete candidate catalog with IDs, prices, categories, product names, and health penalties.
+The influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.” They do not directly change any item ID.
+The LLM reads this information and returns a new complete vector as JSON. The example below is abbreviated; the real array contains 55 IDs:
 ```json
 {"item_ids": [0, 17, 42]}
 ```
-The actual array must contain exactly 55 integer IDs, and every ID must be in the current catalog range. Duplicate IDs are valid. If JSON is missing, malformed, out of range, or has the wrong length, the proposal is rejected and the particle keeps its current position.
-## LLM loop and conversation context
+The response is accepted only when it contains exactly 55 integer IDs and every ID exists in the candidate catalog. If the response is invalid, the new vector is the unchanged current vector.
+After the vector is accepted, the optimizer calculates its fitness. If the new fitness is lower than the particle's previous best, the particle's personal-best vector is replaced. If it is also lower than the swarm's best fitness, the swarm's global-best vector is replaced. The next iteration repeats this process using the updated vectors.
+In short: **current vector + personal best + swarm best + catalog → LLM-generated replacement vector → validation → fitness evaluation → best-vector updates**.## LLM loop and conversation context
 Each particle receives its own `ParticleLLM` instance and therefore its own Copilot session. The session is created lazily on the first proposal using the `COPILOT_GITHUB_TOKEN` environment variable (or the variable named by `--copilot-token-env`). A background asyncio event loop lets the synchronous optimizer call the asynchronous Copilot client.
 The first message for a particle establishes persistent conversation context:
 - the total basket size;
@@ -116,4 +88,6 @@ Use `py -u .\family_pso_optimizer.py --help` for the complete option list.
 - `test_API_calls.py` — standalone Copilot connectivity smoke script; it is not the optimizer test suite.
 - `test_semantic_similrity.py` — standalone embedding comparison experiment; it is not used by the optimizer.
 The scraper and its documentation are in the `data/` directory. The optimizer does not use sentence-transformer embeddings or a separate `family_llm.py` module.
+
+
 
