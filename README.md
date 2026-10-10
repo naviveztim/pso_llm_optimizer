@@ -12,7 +12,32 @@ The configured family has five contiguous basket blocks:
 | mother-in-law | 11 | detergent, cleaning, household products |
 Together these blocks form one flat position of **55 item IDs** (12 + 12 + 10 + 10 + 11). IDs may repeat because the same catalog product can be selected for more than one family member. The LLM is shown the block layout so it can keep each part of the flat position associated with the appropriate member.
 Before optimization, `load_offers()` filters offers by country, ignores offers without a valid price, sorts the remaining offers by price, keeps at most `MAX_CANDIDATES` offers, and renumbers them from zero.
-## How the PSO-like prompts work
+## What “PSO” means in this project
+This is **PSO-inspired LLM search**, not classical mathematical PSO. The implementation keeps the swarm concepts of particles, personal bests, a collective best, fitness comparison, inertia/cognitive/social/exploration coefficients, and stagnation-based stopping. However, it does **not** maintain a velocity vector, calculate `v = v + ...`, or update a numeric position with `x = x + v`. A position is a discrete list of product IDs, so ordinary continuous PSO equations do not apply directly.
+The actual update algorithm is:
+```text
+initialize each particle with a random complete family basket
+evaluate each basket
+set particle.best_selection and particle.best_fitness
+set swarm.global_best_position and swarm.global_best_fitness
+repeat for each iteration:
+    for each particle:
+        calculate four normalized influence shares
+        build a prompt containing:
+            - the particle's current basket
+            - its personal-best basket
+            - the swarm's collective-best basket
+            - all three fitness values
+            - the complete candidate catalog
+        ask the LLM to generate a complete next basket
+        parse and validate the returned item IDs
+        if invalid, keep the current basket
+        evaluate the resulting basket
+        replace the particle's personal best if the score improves
+        replace the swarm's collective best if the score improves
+    stop early if the swarm has stagnated
+```
+Therefore, the LLM is the **position-update operator**. The PSO-inspired values do not modify item IDs mathematically; they are converted into textual percentage targets that tell the LLM how strongly to consider the current position, personal best, collective best, and new exploration. The search can be described as a swarm of LLM-guided particles with PSO-style memory, rather than as a full classical PSO implementation.## How the PSO-like prompts work
 The search state is maintained independently for each particle:
 - **Current position:** the particle's latest complete 55-ID family basket.
 - **Personal best:** the best position found by that particle so far.
@@ -91,3 +116,4 @@ Use `py -u .\family_pso_optimizer.py --help` for the complete option list.
 - `test_API_calls.py` — standalone Copilot connectivity smoke script; it is not the optimizer test suite.
 - `test_semantic_similrity.py` — standalone embedding comparison experiment; it is not used by the optimizer.
 The scraper and its documentation are in the `data/` directory. The optimizer does not use sentence-transformer embeddings or a separate `family_llm.py` module.
+
