@@ -18,9 +18,18 @@ For each particle, `ParticleLLM.propose()` receives:
 - the current 55-ID vector;
 - the particle's best 55-ID vector and its fitness;
 - the swarm's best 55-ID vector and its fitness;
-- four influence percentages for the current vector, personal best, swarm best, and exploration; and
 - the complete candidate catalog with IDs, prices, categories, product names, and health penalties.
-The influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.” They do not directly change any item ID.
+- the influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
+They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.” They do not directly change any item ID.
+### What the percentages mean
+The percentages are **soft instructions to the LLM**, not Python-controlled edit percentages. They do not say that a fixed number of coordinates must change, and they do not identify which coordinates must change.
+- **Current-position share:** tells the LLM how much useful information it may preserve from the current vector.
+- **Cognitive/personal-best share:** tells the LLM how much useful information it may take from this particle's best vector.
+- **Social/swarm-best share:** tells the LLM how much useful information it may take from the best vector found by any particle.
+- **Exploration share:** tells the LLM how much it may search for new catalog items that are not present in either best vector.
+For example, a 15% exploration target in a 55-item vector suggests roughly 8 exploratory positions (`55 × 0.15 ≈ 8`). The program does **not** select exactly 8 positions, create an “exploration pool,” or verify that 8 returned IDs are new. The LLM sees the current vector, both best vectors, and the full catalog, then decides which IDs to copy, replace, or introduce. Any mix is accepted as long as the final response has 55 valid IDs.
+There is no separate Python sampling step such as “take 40% from the current vector, 15% from the personal best, and 30% from the swarm best.” The LLM performs that selection while generating the replacement vector. It may copy complete vectors, copy individual IDs, combine IDs from several vectors, or choose new catalog IDs. The percentages only influence its prompt.
+
 The LLM reads this information and returns a new complete vector as JSON. The example below is abbreviated; the real array contains 55 IDs:
 ```json
 {"item_ids": [0, 17, 42]}
@@ -88,6 +97,8 @@ Use `py -u .\family_pso_optimizer.py --help` for the complete option list.
 - `test_API_calls.py` — standalone Copilot connectivity smoke script; it is not the optimizer test suite.
 - `test_semantic_similrity.py` — standalone embedding comparison experiment; it is not used by the optimizer.
 The scraper and its documentation are in the `data/` directory. The optimizer does not use sentence-transformer embeddings or a separate `family_llm.py` module.
+
+
 
 
 
