@@ -18,6 +18,7 @@ For each particle, `ParticleLLM.propose()` receives:
 - the particle's best 55-ID vector and its fitness;
 - the swarm's best 55-ID vector and its fitness;
 - the complete candidate catalog (with IDs, prices, categories, product names, and health penalties); 
+
 Four influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
 They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.”
 
