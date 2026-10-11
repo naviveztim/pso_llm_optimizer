@@ -18,33 +18,21 @@ For each particle, `ParticleLLM.propose()` receives:
 - the current 55-ID vector;
 - the particle's best 55-ID vector and its fitness;
 - the swarm's best 55-ID vector and its fitness;
-- the complete candidate catalog with IDs, prices, categories, product names, and health penalties.
-- the influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
+- the complete candidate catalog (with IDs, prices, categories, product names, and health penalties);
+- the four influence percentages, calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
 They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.” They do not directly change any item ID.
+
 ### What the percentages mean
-The percentages are **soft instructions to the LLM**, not Python-controlled edit percentages. They do not say that a fixed number of coordinates must change, and they do not identify which coordinates must change.
+The percentages are **soft instructions to the LLM**, not Python-controlled edit percentages.
 - **Current-position share:** tells the LLM how much useful information it may preserve from the current vector.
 - **Cognitive/personal-best share:** tells the LLM how much useful information it may take from this particle's best vector.
 - **Social/swarm-best share:** tells the LLM how much useful information it may take from the best vector found by any particle.
 - **Exploration share:** tells the LLM how much it may search for new catalog items that are not present in either best vector.
-For example, a 15% exploration target in a 55-item vector suggests roughly 8 exploratory positions (`55 × 0.15 ≈ 8`). The program does **not** select exactly 8 positions, create an “exploration pool,” or verify that 8 returned IDs are new. The LLM sees the current vector, both best vectors, and the full catalog, then decides which IDs to copy, replace, or introduce. Any mix is accepted as long as the final response has 55 valid IDs.
-There is no separate Python sampling step such as “take 40% from the current vector, 15% from the personal best, and 30% from the swarm best.” The LLM performs that selection while generating the replacement vector. It may copy complete vectors, copy individual IDs, combine IDs from several vectors, or choose new catalog IDs. The percentages only influence its prompt.
 
-The LLM reads this information and returns a new complete vector as JSON. The example below is abbreviated; the real array contains 55 IDs:
-```json
-{"item_ids": [0, 17, 42]}
-```
 The response is accepted only when it contains exactly 55 integer IDs and every ID exists in the candidate catalog. If the response is invalid, the new vector is the unchanged current vector.
-After the vector is accepted, the optimizer calculates its fitness. If the new fitness is lower than the particle's previous best, the particle's personal-best vector is replaced. If it is also lower than the swarm's best fitness, the swarm's global-best vector is replaced. The next iteration repeats this process using the updated vectors.
-In short: **current vector + personal best + swarm best + catalog → LLM-generated replacement vector → validation → fitness evaluation → best-vector updates**.## LLM loop and conversation context
-Each particle receives its own `ParticleLLM` instance and therefore its own Copilot session. The session is created lazily on the first proposal using the `COPILOT_GITHUB_TOKEN` environment variable (or the variable named by `--copilot-token-env`). A background asyncio event loop lets the synchronous optimizer call the asynchronous Copilot client.
-The first message for a particle establishes persistent conversation context:
-- the total basket size;
-- the fact that duplicate IDs are allowed;
-- the fixed family-member block layout; and
-- every member's basket size, role, preference keywords, and minimum preferred item target.
-The first message also explains the high-level goal: prefer healthier products while keeping the budget low. After that initial context has been sent, later messages do not repeat the setup. Each subsequent message asks for the next basket and supplies the changing optimization state: influence shares, the current position, personal best, collective best, their scores, a variation token, and the full catalog. Thus, initial context is one-time per particle session, while the positions and scores are refreshed on every question.
-Copilot is expected to return only the JSON object. Responses are parsed by `_extract_json_ids()`, validated, and then evaluated locally. A Copilot timeout or unavailable dependency/token raises an operational error; an invalid model response specifically falls back to the current position.
+After the vector is accepted, the optimizer calculates its fitness. If the new fitness is lower than the particle's previous best, the particle's personal-best vector is replaced. 
+If it is also lower than the swarm's best fitness, the swarm's global-best vector is replaced. The next iteration repeats this process using the updated vectors.
+
 ## Optimization loop
 `run_optimizer()` performs the following steps:
 1. Initialize independently seeded random positions and evaluate them.
@@ -55,7 +43,8 @@ Copilot is expected to return only the JSON object. Responses are parsed by `_ex
 6. Record the proposal in `IterationRecord` and stop after the requested number of iterations or after the configured stagnation window.
 7. Close all Copilot clients, including when the loop fails.
 The command-line default is **3 particles** and **10 maximum iterations**. The `run_optimizer()` function itself has a default of 7 particles when called directly, but the CLI passes the value from `--num-particles`.
-## Objective and health proxy
+
+## Objective and health proxy (The fitness function)
 The objective is minimized:
 ```text
 fitness = total_price + 1.2 * total_health_penalty

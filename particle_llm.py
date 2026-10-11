@@ -194,9 +194,11 @@ class ParticleLLM:
         if not self._conversation_initialized:
             prompt_lines.extend([
                 "You are optimizing a complete family grocery basket over a sequence of steps.",
+                f"",
                 f"Remember this shared context for all later messages: "
                 f"the basket always contains exactly {total_size} product IDs.",
                 "Duplicate indexes are allowed because multiple family members may want the same product.",
+                f"",
                 "Family member position blocks:",
                 *self._family_layout_lines(),
                 "Family preferences (consider as many as possible):",
@@ -204,7 +206,8 @@ class ParticleLLM:
                     f"- {profile.name}: {profile.basket_size} items, at least {profile.min_preferred_items} preferred items, keywords={profile.keywords}"
                     for profile in self.profiles
                 ],
-                "Select as healthier as possible products for the basket, but try to propose as lower budget products as possible.",
+
+                "Select as **healthier as possible** products for the basket, but try to propose **as lower budget products as possible**.",
                 "Use product semantics to construct a promising complete basket, not just a random selection of IDs.",
             ])
 
@@ -216,21 +219,18 @@ class ParticleLLM:
             f"- obtain approximately {previous_best_share:.0%} of the basket from useful information in the previous best solution",
             f"- obtain approximately {collective_best_share:.0%} of the basket from useful information in the best solution found across candidates",
             f"- approximately {exploration_share:.0%} may be entirely new exploration",
+            f"",
             "These are influence targets, not mandatory quotas.",
-            "You are allowed to:",
-            "- preserve products from the current position,",
-            "- adopt products from the previous best solution,",
-            "- adopt products from the best solution found across candidates,",
-            "- introduce products not present in either best solution,",
-            "- use price, product type, health characteristics, and interactions among products to construct a promising basket.",
+            f"",
             "Do not simply copy a best solution mechanically; use the targets as flexible guidance.",
-            f"Current basket (score {current_fitness:.4f}): {list(current_position)}",
-            f"Previous best solution (score {personal_best_fitness}): {list(personal_best_position)}",
-            f"Best solution found across candidates (score {global_best_fitness}): {list(global_best_position)}",
+            "Select as **healthier as possible** products for the basket, but try to propose **as lower budget products as possible**.",
+            f"Current basket ({list(current_position)}",
+            f"Previous best solution ({list(personal_best_position)})",
+            f"Best solution found across candidates ({list(global_best_position)})",
             f"Variation token for this call: {time.time_ns() % 1000000}.",
-            "Relevant product catalog:",
         ])
         prompt_lines.extend(
+            f"Relevant product catalog:"
             f"- id={item_id} | price={candidates[item_id].amount:.2f} {candidates[item_id].currency} | "
             f"category={candidates[item_id].category} | health_penalty={health_penalty(candidates[item_id]):.3f} | "
             f"product={candidates[item_id].product}"
