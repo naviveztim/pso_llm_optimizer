@@ -11,16 +11,15 @@ The configured family has five contiguous basket blocks:
 | son | 10 | chocolate, snacks, chips, cola |
 | mother-in-law | 11 | detergent, cleaning, household products |
 Together these blocks form one flat position of **55 item IDs** (12 + 12 + 10 + 10 + 11). IDs may repeat because the same catalog product can be selected for more than one family member. The LLM is shown the block layout so it can keep each part of the flat position associated with the appropriate member.
-Before optimization, `load_offers()` filters offers by country, ignores offers without a valid price, sorts the remaining offers by price, keeps at most `MAX_CANDIDATES` offers, and renumbers them from zero.
 ## How the 55-item particle vector changes
-Each particle is a vector of 55 catalog IDs. One update replaces the whole vector; the code does not edit one coordinate at a time.
+Each particle coordinates is a vector of 55 catalog IDs. One update replaces the whole vector; the code does not edit one coordinate at a time.
 For each particle, `ParticleLLM.propose()` receives:
 - the current 55-ID vector;
 - the particle's best 55-ID vector and its fitness;
 - the swarm's best 55-ID vector and its fitness;
-- the complete candidate catalog (with IDs, prices, categories, product names, and health penalties);
-- the four influence percentages, calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
-They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.” They do not directly change any item ID.
+- the complete candidate catalog (with IDs, prices, categories, product names, and health penalties); 
+Four influence percentages are calculated from `PSO_INERTIA`, `PSO_COGNITIVE`, `PSO_SOCIAL`, and `PSO_EXPLORATION`, with random factors for the last three values. 
+They are written into the prompt as guidance such as “retain approximately 40%” or “use approximately 15% for exploration.”
 
 ### What the percentages mean
 The percentages are **soft instructions to the LLM**, not Python-controlled edit percentages.
