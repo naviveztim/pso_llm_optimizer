@@ -1,4 +1,12 @@
-﻿## Family PSO LLM Optimizer
+﻿## Research question
+Research question explored by this project is:
+
+**Can an LLM act as a semantic transition operator inside a population-based optimizer 
+while retaining the cognitive/social dynamics of PSO?**
+
+A brief example that evaluates this idea is the following example:
+
+## Family PSO LLM Optimizer
 The goal of this project is to demonstrate how a PSO-like search loop can be combined with LLM proposals to optimize a multi-member family shopping plan.
 The optimizer selects products from Kaufland offers catalog, evaluates every proposed plan with a deterministic fitness function, and writes the best plan as a result into JSON format.
 
@@ -60,13 +68,13 @@ The script stores the results in `data/family_pso_plan.json` by default. The out
 - the global best complete position;
 - the winning particle; and
 - each particle's best proposal split into the five member baskets, including product, category, price, and currency details.
-- 
-## Setup and usage
-The implementation is in `family_pso_optimizer.py`, with the LLM integration in `particle_llm.py`. 
 
-Install the dependencies listed in `data/requirements.txt`:
+## Setup and usage
+The implementation of PSO steps is in `family_pso_optimizer.py`, with the LLM integration in `particle_llm.py` and some utility functions in `utils.py`. 
+
+Install the complete project dependencies listed in `requirements.txt`:
 ```powershell
-py -m pip install -r D:\Research\pso_llm_optimizer\data\requirements.txt
+py -m pip install -r D:\Research\pso_llm_optimizer\requirements.txt
 ```
 Set a GitHub token for Copilot API access, then run the optimizer from the repository root:
 ```powershell
@@ -84,13 +92,30 @@ py -u .\family_pso_optimizer.py `
 ```
 Use `py -u .\family_pso_optimizer.py --help` for the complete option list.
 
+## How GitHub Copilot calls are used
+The optimizer uses the GitHub Copilot SDK (`github-copilot-sdk`, imported in Python as `copilot`) for LLM 
+proposals. The GitHub token is read from the `COPILOT_GITHUB_TOKEN` environment variable;
+
+For each `ParticleLLM` instance, the code creates a `CopilotClient` with the token, starts the client, and opens a Copilot session using the configured model (currently `GPT-5.6 Luna`). The session is reused for subsequent proposals from that particle and is stopped when the optimizer closes the particle. A missing token or SDK raises an error; a request timeout returns no proposal, and an empty, invalid, or incomplete response falls back to the particle's current position.
+
+During each optimizer iteration, every particle sends one prompt containing its current basket, personal-best basket, swarm-best basket, their fitness context, PSO influence weights, and the candidate product catalog. The model is asked to return only a JSON object containing exactly 55 valid catalog item IDs. The response is parsed and validated locally before it can replace the particle's position. Consequently, a run with `N` particles and `I` iterations can make up to `N × I` Copilot proposal calls, subject to early stopping and failures.
+
 ## Repository files
 - `family_pso_optimizer.py` — CLI, swarm initialization, evaluation, loop, and JSON report generation.
 - `particle_llm.py` — per-particle Copilot session, prompt construction, response parsing, and validation.
 - `utils.py` — data classes, catalog loading, family profiles, and health scoring.
 - `config.py` — paths, defaults, PSO coefficients, and health keywords.
 - `data/kaufland_prices_by_category_various_countries.json` — catalog input. 
-The scraper and its documentation are in the `data/` directory. The optimizer does not use sentence-transformer embeddings or a separate `family_llm.py` module.
+
+## Python scraper and catalog data
+The Python scraper in `data/kaufland_scraper.py` downloads the current Kaufland weekly-offers page and extracts the embedded offer data. It currently uses the German (`DE`) source, prioritizes food categories, removes duplicate offers, and can include additional categories when needed to reach the requested limit. The scraper-specific dependency is `requests`; its usage and options are documented in `data/README.md`.
+
+The generated JSON catalog contains product names, prices and currencies, unit or base-price text when available, categories, source URLs, collection timestamps, validity dates, and country information. The optimizer loads this catalog as candidate products, addresses them by item ID, and selects a 55-ID family basket. Product prices contribute directly to fitness, while product and category text is also used for the lightweight keyword-based health penalty. Offer prices and availability reflect the current promotion cycle and may change when the scraper is run again.
+
+The optimizer does not use sentence-transformer embeddings or a separate `family_llm.py` module.
+
+## Development acknowledgment
+This project was partially developed with GPT 5.6 Luna as an AI co-author.
 
 
 
