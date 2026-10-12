@@ -4,7 +4,7 @@ Research question explored by this project is:
 **Can an LLM act as a semantic transition operator improving given solutions in a PSO-like optimization loop,
 while retaining the cognitive/social dynamics of PSO?**
 
-A brief example that evaluates this idea is the following example:
+A brief example that evaluates this idea is present here:
 
 ## Family PSO LLM Optimizer
 The goal of this project is to demonstrate how a PSO-like search loop can be combined with LLM proposals to optimize a multi-member family shopping plan.
@@ -36,7 +36,7 @@ The LLM is shown the block layout so it can keep each part of the flat position 
 2. Every present particle position is initialized independently (seeded random position) and evaluated via fitness function.
 3. Each particle's personal best is chosen along with initial collective best.
 #### Iteration
-4. For each iteration, ask every particle's LLM for a complete next position.
+4. For each iteration, particle's LLM is queried for a complete next position.
 5. Evaluate the returned position and update the particle's personal best when its fitness improves.
 6. Update the collective best when any proposal improves the swarm score.
 7. Record the proposal in `IterationRecord` and stop after the requested number of iterations or after the configured stagnation window.

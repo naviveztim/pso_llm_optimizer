@@ -66,7 +66,7 @@ class ParticleLLM:
 
     async def _close_async(self) -> None:
         if self._client is not None:
-            await self._client.stop()
+            await cast(Any, self._client).stop()
         self._client = None
         self._session = None
 
@@ -101,24 +101,28 @@ class ParticleLLM:
             "github_token": token,
             "use_logged_in_user": False,
         })
-        await self._client.start()
+        await cast(Any, self._client).start()
         session_config = {"model": self.copilot_model, "temperature": self.temperature}
         try:
-            self._session = await self._client.create_session(session_config)
+            self._session = await cast(Any, self._client).create_session(
+                cast(Any, session_config)
+            )
         except (TypeError, ValueError) as exc:
             if "temper" not in str(exc).lower():
                 raise
-            self._session = await self._client.create_session({"model": self.copilot_model})
+            self._session = await cast(Any, self._client).create_session(
+                cast(Any, {"model": self.copilot_model})
+            )
         return self._session
 
     async def _async_send_prompt(self, prompt: str) -> str:
         session = await self._ensure_session()
         try:
-            response = await session.send_and_wait({
+            response = await cast(Any, session).send_and_wait(cast(Any, {
                 "prompt": prompt,
                 "timeout": 180,
-            })
-            return str(response.data.content or "")
+            }))
+            return str(cast(Any, response).data.content or "")
         except asyncio.TimeoutError:
             print("[ParticleLLM] Copilot API timeout — no proposal returned for this step.")
             return ""
