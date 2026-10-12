@@ -14,7 +14,7 @@ The configured family has five contiguous basket blocks:
 | mother-in-law | 11 | detergent, cleaning, household products |
 
 Together these blocks form one flat position of **55 item IDs** (12 + 12 + 10 + 10 + 11). 
-IDs may repeat because the same catalog product can be selected for more than one family member. 
+Items' IDs may repeat because the same catalog product can be selected for more than one family member. 
 The LLM is shown the block layout so it can keep each part of the flat position associated with the appropriate member.
 
 ## PSO (like) optimization algorithm
@@ -46,12 +46,13 @@ After the vector is accepted, the optimizer calculates its fitness. If the new f
 If it is also lower than the swarm's best fitness, the swarm's global-best vector is replaced. The next iteration repeats this process using the updated vectors.
 
 ## The fitness function
-The objective estimates the proposed set of item IDs by calculating corresponding fitness function. It is defined as a weighted sum of all items prices and corresponding health penalties. The optimizer seeks to minimize the fitness value. The formula is:
+The objective estimate of the proposed set of item IDs is given by corresponding fitness function. 
+It is defined as a weighted sum of all items' prices and corresponding health penalties. The optimizer seeks to minimize the fitness value. The formula is:
 ```text
 fitness = total_price + 1.2 * total_health_penalty
 ```
-The health penalty is computed per item from configured healthy keywords matched in its product and category text. Each item contributes a value from `0.0` to `1.0`; more healthy keyword matches reduce that value. Repeated IDs contribute repeatedly to both price and penalty.
-The health score is a lightweight keyword proxy, not a nutritional or medical assessment. It never subtracts money from the price.
+Health penalty is computed per item from configured healthy keywords matched in its product and category text. Each item contributes a value from `0.0` to `1.0`; more healthy keyword matches reduce that value. Repeated IDs contribute repeatedly to both price and penalty.
+Health score is a lightweight keyword proxy, not a nutritional or medical assessment.
 
 ## The Output
 The script stores the results in `data/family_pso_plan.json` by default. The output contains:
