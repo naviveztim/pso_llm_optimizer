@@ -1,7 +1,7 @@
 ﻿## Research question
 Research question explored by this project is:
 
-**Can an LLM act as a semantic transition operator inside a population-based optimizer 
+**Can an LLM act as a semantic transition operator improving given solutions in a PSO-like optimization loop,
 while retaining the cognitive/social dynamics of PSO?**
 
 A brief example that evaluates this idea is the following example:
@@ -9,6 +9,11 @@ A brief example that evaluates this idea is the following example:
 ## Family PSO LLM Optimizer
 The goal of this project is to demonstrate how a PSO-like search loop can be combined with LLM proposals to optimize a multi-member family shopping plan.
 The optimizer selects products from Kaufland offers catalog, evaluates every proposed plan with a deterministic fitness function, and writes the best plan as a result into JSON format.
+
+## Disclaimer
+This project is an illustrative research prototype. It explores how LLM proposals can be combined with a PSO-like optimization loop. 
+It has not been validated as a reliable solution for real-world family budget or shopping optimization, and its outputs should not be 
+treated as financial, nutritional, or purchasing advice.
 
 ## What is optimized
 Project aims to optimize grocery shopping for a family of five, with each member having different preferences and dietary needs. 

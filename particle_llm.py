@@ -66,7 +66,7 @@ class ParticleLLM:
 
     async def _close_async(self) -> None:
         if self._client is not None:
-            await cast(Any, self._client).stop()
+            await self._client.stop()
         self._client = None
         self._session = None
 
@@ -101,28 +101,24 @@ class ParticleLLM:
             "github_token": token,
             "use_logged_in_user": False,
         })
-        await cast(Any, self._client).start()
+        await self._client.start()
         session_config = {"model": self.copilot_model, "temperature": self.temperature}
         try:
-            self._session = await cast(Any, self._client).create_session(
-                cast(Any, session_config)
-            )
+            self._session = await self._client.create_session(session_config)
         except (TypeError, ValueError) as exc:
             if "temper" not in str(exc).lower():
                 raise
-            self._session = await cast(Any, self._client).create_session(
-                cast(Any, {"model": self.copilot_model})
-            )
+            self._session = await self._client.create_session({"model": self.copilot_model})
         return self._session
 
     async def _async_send_prompt(self, prompt: str) -> str:
         session = await self._ensure_session()
         try:
-            response = await cast(Any, session).send_and_wait(cast(Any, {
+            response = await session.send_and_wait({
                 "prompt": prompt,
                 "timeout": 180,
-            }))
-            return str(cast(Any, response).data.content or "")
+            })
+            return str(response.data.content or "")
         except asyncio.TimeoutError:
             print("[ParticleLLM] Copilot API timeout — no proposal returned for this step.")
             return ""
@@ -137,10 +133,7 @@ class ParticleLLM:
         candidates: Sequence[OfferItem],
         current_position: Sequence[int],
         personal_best_position: Sequence[int],
-        personal_best_fitness: float,
         global_best_position: Sequence[int],
-        global_best_fitness: float,
-        current_fitness: float = float("nan"),
         inertia: float = 0.7,
     ) -> List[int]:
         """Generate and validate a complete next particle position.
@@ -155,10 +148,7 @@ class ParticleLLM:
             candidates: Full catalog of offers available for selection.
             current_position: Particle's current complete family position.
             personal_best_position: Best position found by this particle.
-            personal_best_fitness: Fitness of ``personal_best_position``.
             global_best_position: Best position found by the swarm.
-            global_best_fitness: Fitness of ``global_best_position``.
-            current_fitness: Fitness of ``current_position`` for prompt context.
             inertia: Relative influence assigned to retaining the current position.
 
         Returns:

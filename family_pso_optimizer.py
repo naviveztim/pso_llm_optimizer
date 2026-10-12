@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Family shopping optimizer using PSO and optional Copilot API proposals."""
+"""Family shopping optimizer using PSO and Copilot API proposals."""
 
 from __future__ import annotations
 
@@ -162,7 +162,7 @@ def run_optimizer(
     Each particle proposes a complete family position, evaluates it, updates
     its personal best, and may update the swarm's global best. LLM sessions are
     closed in a ``finally`` block, including when proposal or evaluation fails.
-    The loop stops after the requested iterations or when the global best fails
+    The loop stops after the requested iterations are exhausted or when the global best fails
     to improve by ``min_delta`` for ``stagnation_window`` consecutive rounds.
 
     Args:
@@ -212,10 +212,7 @@ def run_optimizer(
                     candidates=items,
                     current_position=particle.position,
                     personal_best_position=particle.best_selection,
-                    personal_best_fitness=particle.best_fitness,
                     global_best_position=swarm.global_best_position,
-                    global_best_fitness=swarm.global_best_fitness,
-                    current_fitness=particle.current_fitness,
                     inertia=PSO_INERTIA,
                 )
 
@@ -429,6 +426,7 @@ def main() -> None:
                          country_code=args.country.strip().upper(),
                          max_candidates=args.max_candidates)
 
+    # Create family member profiles for the complete basket.
     profiles = make_profiles()
 
     # Run the LLM-assisted PSO-like optimizer.
