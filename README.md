@@ -1,6 +1,6 @@
 ﻿## Family PSO LLM Optimizer
 The goal of this project is to demonstrate how a PSO-like search loop can be combined with LLM proposals to optimize a multi-member family shopping plan.
-The optimizer selects products from a Kaufland offer catalog, evaluates every proposed plan with a deterministic objective, and writes the best plan to JSON.
+The optimizer selects products from Kaufland offers catalog, evaluates every proposed plan with a deterministic fitness function, and writes the best plan as a result into JSON format.
 
 ## What is optimized
 Project aims to optimize grocery shopping for a family of five, with each member having different preferences and dietary needs. 
